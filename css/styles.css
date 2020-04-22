@@ -1,0 +1,151 @@
+body {
+  background-color: #444444;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0; }
+
+main#container {
+  width: 100vw;
+  height: 100vh;
+  display: grid;
+  overflow: hidden;
+  grid-template: 100px 1024px 1fr / 1fr 1024px 1fr; }
+
+nav#settings_navigator {
+  grid-column: 2/3;
+  grid-row: 1/2;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: flex-end; }
+  nav#settings_navigator ul {
+    margin: 0;
+    padding: 0;
+    margin-bottom: 2px;
+    display: inline-flex;
+    flex-direction: row;
+    list-style-type: none; }
+    nav#settings_navigator ul li {
+      width: 60px;
+      height: 40px;
+      color: white;
+      box-shadow: 3px 3px 10px 1px #333333; }
+  nav#settings_navigator ul#maps_list {
+    width: 100%; }
+  nav#settings_navigator ul#heroes_list {
+    width: 100%;
+    justify-content: flex-end; }
+
+div#interactive_space {
+  grid-column: 2/3;
+  grid-row: 2/3;
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+  overflow: scroll; }
+  div#interactive_space img {
+    width: 1024px;
+    height: 1024px;
+    box-shadow: 3px 3px 10px 1px #333333;
+    background-color: #333333; }
+  div#interactive_space #map_svg {
+    position: absolute;
+    width: 1024px;
+    height: 1024px;
+    z-index: 1; }
+    div#interactive_space #map_svg .standardCircle {
+      fill: wheat;
+      stroke: white;
+      stroke-width: 3;
+      fill-opacity: 0.1;
+      stroke-opacity: 0.9;
+      transition: fill-opacity 0.2s ease-out; }
+    div#interactive_space #map_svg .standardCircle:hover {
+      fill: #ffda96;
+      fill-opacity: 0.5; }
+
+.item {
+  cursor: pointer;
+  height: 100%;
+  background-color: #333333;
+  box-shadow: 3px 3px 10px 1px #333333;
+  display: flex;
+  align-items: center;
+  justify-content: center; }
+
+.item:hover {
+  background-color: #444444; }
+
+.active_item {
+  background-color: #294b5a; }
+
+#overlay {
+  position: fixed;
+  /* Sit on top of the page content */
+  display: none;
+  /* Hidden by default */
+  width: 100%;
+  /* Full width (cover the whole page) */
+  height: 100%;
+  /* Full height (cover the whole page) */
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  /* Black background with opacity */
+  z-index: 2;
+  /* Specify a stack order in case you're using a different order for other elements */
+  cursor: pointer;
+  /* Add a pointer on hover */ }
+  #overlay #overlay_container {
+    display: flex;
+    width: 100%;
+    /* Full width (cover the whole page) */
+    height: 100%;
+    /* Full height (cover the whole page) */
+    position: relative;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center; }
+
+.clickable {
+  cursor: pointer; }
+
+.card {
+  width: 800px;
+  height: 600px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #444444; }
+
+/* LIST BUTTON SHOW
+  .nav_button {
+    cursor: pointer;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 4em;
+    align-self: flex-start;
+    background-color: #787;
+    display: flex;
+    align-items: center;
+    //border-style: solid;
+    //border-width: 1px;
+    //border-color: #999;
+    box-shadow: 2px 2px 5px 1px grey;
+    .arrow {
+      // transform: rotate(-90deg);
+      transition: transform 0.4s, left 0.3s, top 0.3s;
+      transition-timing-function: ease;
+      stroke: white;
+      width: 25px;
+      height: 18px;
+      padding-left: 5px;
+    }
+    .button-text {
+      text-align: left;
+      padding-left: 10px;
+    }
+    */

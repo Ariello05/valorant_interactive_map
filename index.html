@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Valorant map tips</title>
+    <meta name="description" content="The HTML5 Herald" />
+    <meta name="author" content="Paweł Dychus" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/styles.css?v=1.0" />
+  </head>
+
+  <body>
+    <main id="container">
+      <nav id="settings_navigator">
+        <ul id="maps_list">
+          <li class="item active_item" id="map_list_item_bind">Bind</li>
+          <li class="item" id="map_list_item_split">Split</li>
+          <li class="item" id="map_list_item_haven">Haven</li>
+        </ul>
+        <ul id="heroes_list">
+          <li class="item">Raze</li>
+          <li class="item">Sova</li>
+        </ul>
+      </nav>
+      <div id="interactive_space">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          id="map_svg"
+          width="1024"
+          height="1024"
+        ></svg>
+        <img src="resource/bind.png" id="map_image" />
+      </div>
+    </main>
+    <article id="overlay" onclick="turn_off_overlay()">
+      <div id="overlay_container"></div>
+    </article>
+
+    <script src="js/scripts.js"></script>
+  </body>
+</html>

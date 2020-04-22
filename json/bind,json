@@ -1,0 +1,16 @@
+{
+  "groups": [
+    {
+      "source": "smiley.jpg",
+      "item": [
+        {
+          "type": "circle",
+          "cx": 630,
+          "cy": 489,
+          "r": 40,
+          "class": "standardCircle"
+        }
+      ]
+    }
+  ]
+}
