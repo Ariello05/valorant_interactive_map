@@ -1,0 +1,25 @@
+@mixin settings_list {
+  &#maps_list {
+    @content;
+  }
+  &#heroes_list {
+    @content;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+  }
+}
+
+@mixin simple_box_shadow($color) {
+  box-shadow: 3px 3px 10px 1px $color;
+}
+
+@mixin size($width, $height) {
+  width: $width;
+  height: $height;
+}
+
+@mixin desktop {
+  @media only screen and (min-width: 1024px) {
+    @content;
+  }
+}

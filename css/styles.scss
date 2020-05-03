@@ -1,7 +1,6 @@
-$main_theme: #444444;
-$secondary_theme: #333333;
-$active: #294b5a;
-$gray_border: #545454;
+@import '_variables';
+@import '_mixins';
+@import '_extends';
 
 body {
   background-color: $main_theme;
@@ -11,11 +10,13 @@ body {
 }
 
 main#container {
-  width: 100vw;
-  height: 100vh;
+  @include size(100vw, 100vh);
   display: grid;
   overflow: hidden;
-  grid-template: 100px 1024px 1fr / 1fr 1024px 1fr;
+  grid-template: $grid-sizes-small;
+  @include desktop() {
+    grid-template: $grid-sizes-big;
+  }
 }
 
 nav#settings_navigator {
@@ -25,6 +26,7 @@ nav#settings_navigator {
   flex-direction: row;
   justify-content: space-around;
   align-items: flex-end;
+  margin-top: 10px;
   ul {
     margin: 0;
     padding: 0;
@@ -32,84 +34,95 @@ nav#settings_navigator {
     display: inline-flex;
     flex-direction: row;
     list-style-type: none;
-    li {
-      width: 60px;
-      height: 40px;
-      color: white;
-      box-shadow: 3px 3px 10px 1px $secondary_theme;
+    @include settings_list() {
+      width: 50%;
     }
-  }
-  ul#maps_list {
-    width: 100%;
-  }
-  ul#heroes_list {
-    width: 100%;
-    justify-content: flex-end;
   }
 }
 
 div#interactive_space {
   grid-column: 2/3;
   grid-row: 2/3;
-  width: 100vw;
-  height: 100vh;
+  @include size(100%, 100%);
+
+  margin: 1px;
 
   position: relative;
   overflow: scroll;
   //transform: scale(0.5, 0.5);
+  @include desktop() {
+    @include simple_box_shadow($secondary_theme);
+    overflow: hidden;
+  }
 
   img {
-    width: 1024px;
-    height: 1024px;
+    @include size(150vw, auto);
+    @include desktop() {
+      @include size(100%, 100%);
+    }
     //transform: scale(0.5, 0.5);
-    box-shadow: 3px 3px 10px 1px $secondary_theme;
     background-color: $secondary_theme;
   }
   #map_svg {
     position: absolute;
-    width: 1024px;
-    height: 1024px;
+    @include size(150vw, auto);
+    @include desktop() {
+      @include size(100%, 100%);
+    }
     //transform: scale(0.5, 0.5);
+
     z-index: 1;
     .standardCircle {
-      fill: wheat;
+      fill: #806128;
       stroke: white;
       stroke-width: 3;
-      fill-opacity: 0.1;
+      fill-opacity: 0.3;
       stroke-opacity: 0.9;
       transition: fill-opacity 0.2s ease-out;
-    }
-    .standardCircle:hover {
-      fill: rgb(255, 218, 150);
-      fill-opacity: 0.5;
+      &:hover {
+        fill: darken($color: #806128, $amount: 5%);
+        fill-opacity: 0.5;
+      }
     }
   }
 }
 
 .item {
   cursor: pointer;
-  height: 100%;
-  //border-style: solid;
-  //border-width: 1px;
-  //border-color: $gray_border;
-  background-color: $secondary_theme;
-  box-shadow: 3px 3px 10px 1px $secondary_theme;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.item:hover {
-  background-color: $main_theme;
-}
-.active_item {
-  background-color: $active;
+  background-color: $button_color;
+
+  @extend %flex-center;
+  @include size(45px, 30px);
+
+  @include desktop() {
+    @include simple_box_shadow($button_color);
+    @include size(90px, 40px);
+  }
+  margin: 1px;
+  font-size: 1em;
+  color: white;
+  border-radius: 2px;
+  border: solid 1px lighten($button_color, 5%);
+  transition: transform 0.2s, margin 0.2s;
+  transition: background-color 0.15s ease-in;
+  &:hover {
+    background-color: darken($button_color, 5%);
+    margin-left: 4px;
+    margin-right: 4px;
+    transform: scale(1.07, 1.07);
+  }
+  &.active_item {
+    background-color: lighten($button_color, 20%);
+  }
+  //&:last-child {
+  //  border-right: none;
+  //}
 }
 
 #overlay {
   position: fixed; /* Sit on top of the page content */
   display: none; /* Hidden by default */
-  width: 100%; /* Full width (cover the whole page) */
-  height: 100%; /* Full height (cover the whole page) */
+  @include size(100%, 100%);
   top: 0;
   left: 0;
   right: 0;
@@ -118,27 +131,22 @@ div#interactive_space {
   z-index: 2; /* Specify a stack order in case you're using a different order for other elements */
   cursor: pointer; /* Add a pointer on hover */
   #overlay_container {
+    @include size(100%, 100%);
     display: flex;
-    width: 100%; /* Full width (cover the whole page) */
-    height: 100%; /* Full height (cover the whole page) */
     position: relative;
     flex-direction: column;
     justify-content: center;
     align-items: center;
   }
+  .card {
+    @include size(600px, 400px);
+    @extend %flex-center;
+    background-color: $main_theme;
+  }
 }
 
 .clickable {
   cursor: pointer;
-}
-
-.card {
-  width: 800px;
-  height: 600px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: $main_theme;
 }
 
 /* LIST BUTTON SHOW
@@ -155,7 +163,7 @@ div#interactive_space {
     //border-style: solid;
     //border-width: 1px;
     //border-color: #999;
-    box-shadow: 2px 2px 5px 1px grey;
+    box-shadow: 2px 2px 5px 1px gray_border;
     .arrow {
       // transform: rotate(-90deg);
       transition: transform 0.4s, left 0.3s, top 0.3s;
