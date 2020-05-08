@@ -1,3 +1,5 @@
+@import '_variables';
+
 @mixin settings_list {
   &#maps_list {
     @content;
@@ -18,8 +20,9 @@
   height: $height;
 }
 
-@mixin desktop {
-  @media only screen and (min-width: 1024px) {
+@mixin media($device_name) {
+  $size: map-get($media_sizes, $device_name);
+  @media only screen and (min-width: $size) {
     @content;
   }
 }

@@ -1,18 +1,16 @@
 /* eslint-disable camelcase */
 var activeButton = $('#map_list_item_bind')
-const viewSize = {
-  width: 670,
-  height: 570
-}
 
 // eslint-disable-next-line no-unused-vars
 const turn_on_overlay = (image_to_show_id) => {
   console.log(image_to_show_id)
+
   $('#overlay').children().append(
     ` <div class="card">
-      <img width=${viewSize.width} height=${viewSize.height} src="resource/${image_to_show_id}"/>
-      </div>`
+    <img src="resource/${image_to_show_id}"/>
+    </div>`
   )
+
   $('#overlay').fadeIn(200)
 }
 
@@ -87,17 +85,6 @@ $(document).ready(() => {
   $('#map_list_item_haven').click((ev) => {
     fade_map(120, 'haven')
   })
-  /* TODO: responsivity for mobile
-  $("#map_svg")
-    .children()
-    .each(function () {
-      let cx = $(this).attr("cx");
-      let cy = $(this).attr("cy");
-      console.log($(this));
-      $(this).attr("cx", cx / 2);
-      $(this).attr("cy", cy / 2);
-    });
-  */
 })
 
 /* LIST LOGIC

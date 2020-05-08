@@ -14,8 +14,8 @@ main#container {
   height: 100vh;
   display: grid;
   overflow: hidden;
-  grid-template: 40px 1fr 15px/5px 1fr 5px; }
-  @media only screen and (min-width: 1024px) {
+  grid-template: 8% 1fr 10px/5px 1fr 5px; }
+  @media only screen and (min-width: 1025px) {
     main#container {
       grid-template: 50px 1fr 15px/1fr auto 1fr; } }
 
@@ -33,7 +33,8 @@ nav#settings_navigator {
     margin-bottom: 2px;
     display: inline-flex;
     flex-direction: row;
-    list-style-type: none; }
+    list-style-type: none;
+    align-self: flex-end; }
     nav#settings_navigator ul#maps_list {
       width: 50%; }
     nav#settings_navigator ul#heroes_list {
@@ -49,26 +50,28 @@ div#interactive_space {
   margin: 1px;
   position: relative;
   overflow: scroll; }
-  @media only screen and (min-width: 1024px) {
+  @media only screen and (min-width: 1025px) {
     div#interactive_space {
       box-shadow: 3px 3px 10px 1px #1a2533;
-      overflow: hidden; } }
+      overflow: hidden;
+      width: auto;
+      height: 100%; } }
   div#interactive_space img {
-    width: 150vw;
-    height: auto;
+    width: auto;
+    height: 100%;
     background-color: #1a2533; }
-    @media only screen and (min-width: 1024px) {
+    @media only screen and (min-width: 1025px) {
       div#interactive_space img {
-        width: 100%;
+        width: auto;
         height: 100%; } }
   div#interactive_space #map_svg {
     position: absolute;
-    width: 150vw;
-    height: auto;
+    width: auto;
+    height: 100%;
     z-index: 1; }
-    @media only screen and (min-width: 1024px) {
+    @media only screen and (min-width: 1025px) {
       div#interactive_space #map_svg {
-        width: 100%;
+        width: auto;
         height: 100%; } }
     div#interactive_space #map_svg .standardCircle {
       fill: #806128;
@@ -84,20 +87,21 @@ div#interactive_space {
 .item {
   cursor: pointer;
   background-color: #2a3b70;
-  width: 45px;
-  height: 30px;
+  width: 20vw;
+  height: 7vh;
+  font-size: 4.5vw;
   margin: 1px;
-  font-size: 1em;
   color: white;
   border-radius: 2px;
   border: solid 1px #314583;
   transition: transform 0.2s, margin 0.2s;
   transition: background-color 0.15s ease-in; }
-  @media only screen and (min-width: 1024px) {
+  @media only screen and (min-width: 1025px) {
     .item {
       box-shadow: 3px 3px 10px 1px #2a3b70;
       width: 90px;
-      height: 40px; } }
+      height: 40px;
+      font-size: 20px; } }
   .item:hover {
     background-color: #23315d;
     margin-left: 4px;
@@ -132,39 +136,53 @@ div#interactive_space {
     justify-content: center;
     align-items: center; }
   #overlay .card {
-    width: 600px;
-    height: 400px;
-    background-color: #181b24; }
+    width: 90vw;
+    height: 90vw;
+    max-height: 90vh;
+    background-color: #181b24;
+    padding: 10px; }
+    @media only screen and (orientation: landscape) {
+      #overlay .card {
+        width: 90vh;
+        height: 90vh; } }
+    @media only screen and (min-width: 1025px) {
+      #overlay .card {
+        width: 720px;
+        height: 720px; } }
+    #overlay .card img {
+      width: 100%;
+      height: 100%; }
 
 .clickable {
   cursor: pointer; }
 
-/* LIST BUTTON SHOW
-  .nav_button {
-    cursor: pointer;
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    height: 4em;
-    align-self: flex-start;
-    background-color: #787;
-    display: flex;
-    align-items: center;
-    //border-style: solid;
-    //border-width: 1px;
-    //border-color: #999;
-    box-shadow: 2px 2px 5px 1px gray_border;
-    .arrow {
-      // transform: rotate(-90deg);
-      transition: transform 0.4s, left 0.3s, top 0.3s;
-      transition-timing-function: ease;
-      stroke: white;
-      width: 25px;
-      height: 18px;
-      padding-left: 5px;
-    }
-    .button-text {
-      text-align: left;
-      padding-left: 10px;
-    }
-    */
+/*
+.nav_button {
+  cursor: pointer;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 4em;
+  align-self: flex-start;
+  background-color: #787;
+  display: flex;
+  align-items: center;
+  //border-style: solid;
+  //border-width: 1px;
+  //border-color: #999;
+  box-shadow: 2px 2px 5px 1px gray_border;
+  .arrow {
+    // transform: rotate(-90deg);
+    transition: transform 0.4s, left 0.3s, top 0.3s;
+    transition-timing-function: ease;
+    stroke: white;
+    width: 25px;
+    height: 18px;
+    padding-left: 5px;
+  }
+  .button-text {
+    text-align: left;
+    padding-left: 10px;
+  }
+}
+*/

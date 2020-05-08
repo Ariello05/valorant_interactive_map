@@ -4,4 +4,9 @@ $button_color: #2a3b70;
 $gray_border: #545454;
 
 $grid-sizes-big: 50px 1fr 15px / 1fr auto 1fr;
-$grid-sizes-small: 40px 1fr 15px / 5px 1fr 5px;
+$grid-sizes-small: 8% 1fr 10px/ 5px 1fr 5px;
+
+$media_sizes: (
+  'desktop': 1025px,
+  'tablet': 760px
+);

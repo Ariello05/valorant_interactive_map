@@ -14,7 +14,7 @@ main#container {
   display: grid;
   overflow: hidden;
   grid-template: $grid-sizes-small;
-  @include desktop() {
+  @include media('desktop') {
     grid-template: $grid-sizes-big;
   }
 }
@@ -31,9 +31,11 @@ nav#settings_navigator {
     margin: 0;
     padding: 0;
     margin-bottom: 2px;
+
     display: inline-flex;
     flex-direction: row;
     list-style-type: none;
+    align-self: flex-end;
     @include settings_list() {
       width: 50%;
     }
@@ -46,28 +48,28 @@ div#interactive_space {
   @include size(100%, 100%);
 
   margin: 1px;
-
   position: relative;
   overflow: scroll;
   //transform: scale(0.5, 0.5);
-  @include desktop() {
+  @include media('desktop') {
     @include simple_box_shadow($secondary_theme);
     overflow: hidden;
+    @include size(auto, 100%);
   }
 
   img {
-    @include size(150vw, auto);
-    @include desktop() {
-      @include size(100%, 100%);
+    @include size(auto, 100%);
+    @include media('desktop') {
+      @include size(auto, 100%);
     }
     //transform: scale(0.5, 0.5);
     background-color: $secondary_theme;
   }
   #map_svg {
     position: absolute;
-    @include size(150vw, auto);
-    @include desktop() {
-      @include size(100%, 100%);
+    @include size(auto, 100%);
+    @include media('desktop') {
+      @include size(auto, 100%);
     }
     //transform: scale(0.5, 0.5);
 
@@ -92,14 +94,16 @@ div#interactive_space {
   background-color: $button_color;
 
   @extend %flex-center;
-  @include size(45px, 30px);
+  @include size(20vw, 7vh);
+  font-size: 4.5vw;
 
-  @include desktop() {
+  @include media('desktop') {
     @include simple_box_shadow($button_color);
     @include size(90px, 40px);
+    font-size: 20px;
   }
   margin: 1px;
-  font-size: 1em;
+
   color: white;
   border-radius: 2px;
   border: solid 1px lighten($button_color, 5%);
@@ -139,42 +143,55 @@ div#interactive_space {
     align-items: center;
   }
   .card {
-    @include size(600px, 400px);
+    @include size(90vw, 90vw);
+    max-height: 90vh;
+    @media only screen and (orientation: landscape) {
+      @include size(90vh, 90vh);
+    }
+
+    @include media('desktop') {
+      @include size(720px, 720px);
+    }
+
     @extend %flex-center;
     background-color: $main_theme;
+    padding: 10px;
+    img {
+      @include size(100%, 100%);
+    }
   }
 }
 
 .clickable {
   cursor: pointer;
 }
-
-/* LIST BUTTON SHOW
-  .nav_button {
-    cursor: pointer;
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    height: 4em;
-    align-self: flex-start;
-    background-color: #787;
-    display: flex;
-    align-items: center;
-    //border-style: solid;
-    //border-width: 1px;
-    //border-color: #999;
-    box-shadow: 2px 2px 5px 1px gray_border;
-    .arrow {
-      // transform: rotate(-90deg);
-      transition: transform 0.4s, left 0.3s, top 0.3s;
-      transition-timing-function: ease;
-      stroke: white;
-      width: 25px;
-      height: 18px;
-      padding-left: 5px;
-    }
-    .button-text {
-      text-align: left;
-      padding-left: 10px;
-    }
-    */
+/*
+.nav_button {
+  cursor: pointer;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 4em;
+  align-self: flex-start;
+  background-color: #787;
+  display: flex;
+  align-items: center;
+  //border-style: solid;
+  //border-width: 1px;
+  //border-color: #999;
+  box-shadow: 2px 2px 5px 1px gray_border;
+  .arrow {
+    // transform: rotate(-90deg);
+    transition: transform 0.4s, left 0.3s, top 0.3s;
+    transition-timing-function: ease;
+    stroke: white;
+    width: 25px;
+    height: 18px;
+    padding-left: 5px;
+  }
+  .button-text {
+    text-align: left;
+    padding-left: 10px;
+  }
+}
+*/
