@@ -54,13 +54,14 @@ div#interactive_space {
   @include media('desktop') {
     @include simple_box_shadow($secondary_theme);
     overflow: hidden;
-    @include size(auto, 100%);
+    @include size(100%, 100%);
   }
 
   img {
     @include size(auto, 100%);
     @include media('desktop') {
-      @include size(auto, 100%);
+      @include size(100%, 100%);
+      object-fit: contain;
     }
     //transform: scale(0.5, 0.5);
     background-color: $secondary_theme;
@@ -69,7 +70,7 @@ div#interactive_space {
     position: absolute;
     @include size(auto, 100%);
     @include media('desktop') {
-      @include size(auto, 100%);
+      @include size(100%, 100%);
     }
     //transform: scale(0.5, 0.5);
 
@@ -95,14 +96,23 @@ div#interactive_space {
 
   @extend %flex-center;
   @include size(20vw, 7vh);
-  font-size: 4.5vw;
+  font-size: 4vw;
+  margin: 1px;
 
   @include media('desktop') {
     @include simple_box_shadow($button_color);
     @include size(90px, 40px);
+    min-width: 5vw;
+    min-height: 4vh;
     font-size: 20px;
   }
-  margin: 1px;
+  @include media('desktop-huge') {
+    @include simple_box_shadow($button_color);
+    @include size(12px, 60px);
+    font-size: 30px;
+    margin-left: 2px;
+    margin-right: 2px;
+  }
 
   color: white;
   border-radius: 2px;
