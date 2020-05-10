@@ -17,7 +17,7 @@ main#container {
   grid-template: 8% 1fr 10px/5px 1fr 5px; }
   @media only screen and (min-width: 1025px) {
     main#container {
-      grid-template: 5% 1fr 15px/1fr 50vw 1fr; } }
+      grid-template: 6% 1fr 15px/1fr 50vw 1fr; } }
 
 nav#settings_navigator {
   grid-column: 2/3;
@@ -30,7 +30,7 @@ nav#settings_navigator {
   nav#settings_navigator ul {
     margin: 0;
     padding: 0;
-    margin-bottom: 2px;
+    margin-bottom: 1px;
     display: inline-flex;
     flex-direction: row;
     list-style-type: none;
@@ -108,7 +108,7 @@ div#interactive_space {
   @media only screen and (min-width: 2000px) {
     .item {
       box-shadow: 3px 3px 10px 1px #2a3b70;
-      width: 12px;
+      width: 120px;
       height: 60px;
       font-size: 30px;
       margin-left: 2px;

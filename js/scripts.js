@@ -1,7 +1,43 @@
 /* eslint-disable camelcase */
 var activeButton = $('#map_list_item_bind')
 
-// eslint-disable-next-line no-unused-vars
+const errors = {
+  argumentError: 'Invalid argument in a function call',
+  notImplementedError: "This functionality wasnt't implemented"
+}
+
+const map_names = {
+  BIND: 'bind',
+  SPLIT: 'split',
+  HAVEN: 'haven'
+}
+
+const map_fetches = {
+  BIND: 'https://api.jsonbin.io/b/5ea03eb55fa47104cea5096d/2',
+  SPLIT: '',
+  HAVEN: ''
+}
+
+const get_url_for_map = (map_name) => {
+  switch (map_name) {
+    case map_names.BIND:
+      return map_fetches.BIND
+
+    case map_names.SPLIT:
+      return map_fetches.SPLIT
+
+    case map_names.HAVEN:
+      return map_fetches.HAVEN
+
+    default:
+      throw new Error(errors.notImplementedError)
+  }
+}
+
+const clear_interactive_map = () => {
+  $('#map_svg').empty()
+}
+
 const turn_on_overlay = (image_to_show_id) => {
   console.log(image_to_show_id)
 
@@ -13,30 +49,99 @@ const turn_on_overlay = (image_to_show_id) => {
 
   $('#overlay').fadeIn(200)
 }
-
-// eslint-disable-next-line no-unused-vars
 const turn_off_overlay = (delay = 200) => {
   $('#overlay').fadeOut(delay)
   $('#overlay').children().empty()
 }
 
-function fade_map(time, map) {
-  $('#interactive_space').fadeOut(time, () => {
-    $('#map_image').attr('src', `resource/${map}.png`)
-    activeButton.removeClass('active_item')
-    activeButton = $(`#map_list_item_${map}`)
-    activeButton.addClass('active_item')
-    $('#interactive_space').fadeIn(time)
-  })
+const put_render_loading_title = () => {
+  /* $('#interactive_space').append(
+    '<span>Loading...</span>'
+  ) */
 }
 
-const processData = (data) => {
+const clear_render_loading_title = () => {
+  /*
+  $('#interactive_space').empty('span')
+  */
+}
+
+const handle_data_fetch = (map_name) => {
+  fade_start(120, put_render_loading_title)
+  return fetch(get_url_for_map(map_name), {
+    headers: {
+      'secret-key':
+        '$2b$10$aXNzpfHDCiVx1j0lTjE1dOqb36FnbSk5HDs2/zh26C/o0Xuolp8La'
+    }
+  })
+    .then((response) => response.json())
+    .then((result) => {
+      // $('#map_svg').empty()
+      process_data(result)
+      fade_end(120, map_names.BIND, clear_render_loading_title)
+      return result
+    })
+}
+
+/**
+ * Memoized fetcher
+ */
+function get_fetcher() {
+  let bind_data = {}
+  // let split_data = {}
+  // let heaven_data = {}
+
+  function data_fetch(map_name) {
+    switch (map_name) {
+      case map_names.BIND:
+        if ($.isEmptyObject(bind_data)) {
+          handle_data_fetch(map_name, bind_data).then((result) => {
+            bind_data = result
+          })
+        } else {
+          fade_start(120, () => {
+            process_data(bind_data)
+            fade_end(120, map_names.BIND)
+          })
+        }
+
+        break
+      case map_names.SPLIT:
+        fade_start(120, () => {
+          fade_end(120, map_names.SPLIT)
+        })
+        break
+      case map_names.HAVEN:
+        fade_start(120, () => {
+          fade_end(120, map_names.HAVEN)
+        })
+        break
+      default:
+        throw new Error(errors.argumentError)
+    }
+  }
+  return data_fetch
+}
+
+const update_map = get_fetcher()
+
+function fade_start(time, on_finished = null) {
+  clear_interactive_map()
+  $('#interactive_space').fadeOut(time, on_finished)
+}
+
+function fade_end(time, map) {
+  $('#map_image').attr('src', `resource/${map}.png`)
+  activeButton.removeClass('active_item')
+  activeButton = $(`#map_list_item_${map}`)
+  activeButton.addClass('active_item')
+  $('#interactive_space').fadeIn(time)
+}
+
+const process_data = (data) => {
   const groups = data.groups
   groups.forEach((group) => {
-    console.log(group)
     const src = group.source
-    // let new_html_group = `<g onclick="turn_on_overlay(${src})" class="clickable"></g>`
-    // new_html_group = $(new_html_group).appendTo('#map_svg')
 
     // eslint-disable-next-line no-undef
     const new_group = d3
@@ -50,9 +155,6 @@ const processData = (data) => {
     const items = group.items
     items.forEach((item) => {
       if (item.type === 'circle') {
-        // new_group.append(
-        //  `<circle cx=${item.cx} cy=${item.cy} r=${item.r} class=${item.class}  />`
-        // )
         new_group
           .append('circle')
           .attr('cx', `${item.cx}`)
@@ -66,24 +168,16 @@ const processData = (data) => {
 
 $(document).ready(() => {
   $('#map_list_item_split').click((ev) => {
-    fade_map(120, 'split')
+    update_map('split')
   })
   $('#map_list_item_bind').click((ev) => {
-    fetch('https://api.jsonbin.io/b/5ea03eb55fa47104cea5096d/2', {
-      headers: {
-        'secret-key':
-          '$2b$10$aXNzpfHDCiVx1j0lTjE1dOqb36FnbSk5HDs2/zh26C/o0Xuolp8La'
-      }
-    })
-      .then((response) => response.json())
-      .then((result) => {
-        $('#map_svg').empty()
-        processData(result)
-      })
-    fade_map(120, 'bind')
+    update_map('bind')
   })
   $('#map_list_item_haven').click((ev) => {
-    fade_map(120, 'haven')
+    update_map('haven')
+  })
+  $('#overlay').click((ev) => {
+    turn_off_overlay()
   })
 })
 

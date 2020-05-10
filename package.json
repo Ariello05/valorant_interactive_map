@@ -14,6 +14,7 @@
   ],
   "author": "Paweł Dychus",
   "license": "ISC",
+  "type": "module",
   "devDependencies": {
     "eslint": "^6.8.0",
     "eslint-config-standard": "^14.1.1",

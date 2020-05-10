@@ -30,7 +30,7 @@ nav#settings_navigator {
   ul {
     margin: 0;
     padding: 0;
-    margin-bottom: 2px;
+    margin-bottom: 1px;
 
     display: inline-flex;
     flex-direction: row;
@@ -108,7 +108,7 @@ div#interactive_space {
   }
   @include media('desktop-huge') {
     @include simple_box_shadow($button_color);
-    @include size(12px, 60px);
+    @include size(120px, 60px);
     font-size: 30px;
     margin-left: 2px;
     margin-right: 2px;
