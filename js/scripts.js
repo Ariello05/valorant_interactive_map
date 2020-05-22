@@ -297,7 +297,7 @@ const fade_end = (time, map) => {
 }
 
 $(document).ready(() => {
-  // update_map('bind')
+  update_map('bind')
   $('#map_list_item_split').click((ev) => {
     update_map('split')
   })
