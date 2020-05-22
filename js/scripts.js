@@ -18,7 +18,7 @@ const map_names = {
 }
 
 const map_fetches = {
-  BIND: 'https://api.jsonbin.io/b/5ea03eb55fa47104cea5096d/14',
+  BIND: 'https://api.jsonbin.io/b/5ea03eb55fa47104cea5096d/15',
   SPLIT: '',
   HAVEN: ''
 }
@@ -302,7 +302,6 @@ $(document).ready(() => {
     if (ev.target.nodeName !== 'IMG') {
       turn_off_overlay()
     }
-    console.log(ev)
   })
   $('#map_list_item_split').click((ev) => {
     update_map('split')
