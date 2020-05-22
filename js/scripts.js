@@ -48,11 +48,11 @@ const clear_interactive_map = () => {
 }
 
 const turn_on_modal = () => {
-  $('#modal').toggle(200)
+  $('#pick_form').toggle(200)
 }
 
 const turn_off_modal = () => {
-  $('#modal').fadeOut(200)
+  $('#pick_form').fadeOut(200)
 }
 
 const get_data_processor = () => {
@@ -143,6 +143,7 @@ const clear_render_loading_title = () => {
 
 const handle_data_fetch = (map_name) => {
   fade_start(120, put_render_loading_title)
+  //IDC what you do with this key anyway...
   return fetch(get_url_for_map(map_name), {
     headers: {
       'secret-key':
