@@ -168,6 +168,8 @@ div#interactive_space {
       transform: rotate(90deg); }
     #overlay #overlay_container #arrow_right {
       transform: rotate(-90deg); }
+    #overlay #overlay_container #image_container img {
+      object-fit: contain; }
   #overlay .card {
     cursor: pointer;
     /* Add a pointer on hover */

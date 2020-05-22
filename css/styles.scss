@@ -176,6 +176,11 @@ div#interactive_space {
     #arrow_right {
       transform: rotate(-90deg);
     }
+    #image_container {
+      img {
+        object-fit: contain;
+      }
+    }
   }
   .card {
     cursor: pointer; /* Add a pointer on hover */
