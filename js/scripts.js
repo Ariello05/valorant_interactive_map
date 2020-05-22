@@ -48,11 +48,11 @@ const clear_interactive_map = () => {
 }
 
 const turn_on_modal = () => {
-  $('#pick_form').toggle(200)
+  $('#modal').toggle(200)
 }
 
 const turn_off_modal = () => {
-  $('#pick_form').fadeOut(200)
+  $('#modal').fadeOut(200)
 }
 
 const get_data_processor = () => {

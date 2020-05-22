@@ -220,7 +220,6 @@ div#interactive_space {
       #modal .close {
         display: none; } }
   #modal #pick_form {
-    display: none;
     background-color: #181b24;
     position: relative;
     padding: 10px;
