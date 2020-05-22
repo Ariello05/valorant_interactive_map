@@ -19,11 +19,11 @@
       "source": "smiley.jpg",
       "items": [
         {
-          "type": "circle",
-          "cx": 430,
-          "cy": 489,
-          "r": 30,
-          "class": "standardCircle"
+          "type": "sageBarrier",
+          "x": 620,
+          "y": 420,
+          "rotate": 0,
+          "class": "sageBarrier"
         }
       ]
     }

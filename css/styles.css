@@ -94,6 +94,15 @@ div#interactive_space {
       div#interactive_space #map_svg .standardCircle:hover {
         fill: #6d5222;
         fill-opacity: 0.5; }
+    div#interactive_space #map_svg .sageBarrier {
+      fill-opacity: 0;
+      fill: #2a3b70;
+      stroke: #2a3b70;
+      stroke-width: 2;
+      stroke-opacity: 0.9;
+      cursor: pointer; }
+      div#interactive_space #map_svg .sageBarrier:hover {
+        fill-opacity: 0.2; }
 
 .item {
   cursor: pointer;
@@ -153,8 +162,7 @@ div#interactive_space {
       width: 50px;
       height: 70px;
       object-fit: contain;
-      cursor: pointer;
-      color: #a34300; }
+      cursor: pointer; }
     #overlay #overlay_container .arrow_left {
       transform: rotate(90deg); }
     #overlay #overlay_container .arrow_right {
@@ -209,14 +217,20 @@ div#interactive_space {
   justify-content: center;
   z-index: 2;
   background-color: rgba(0, 0, 0, 0.5); }
+  @media only screen and (orientation: landscape) {
+    #modal {
+      grid-column: 2/3;
+      grid-row: 2/3;
+      align-items: center;
+      justify-content: center; } }
   @media only screen and (min-width: 1025px) {
     #modal {
       background-color: rgba(0, 0, 0, 0);
+      margin-left: 4px;
       grid-row: 2/2;
       grid-column: 3/3;
-      display: flex;
-      align-items: center;
-      justify-content: center; }
+      align-items: flex-start;
+      justify-content: flex-start; }
       #modal .close {
         display: none; } }
   #modal #pick_form {
@@ -239,6 +253,10 @@ div#interactive_space {
       font-size: 1.1rem;
       border-bottom: solid 1px #545454;
       margin-bottom: 10px; }
+    @media only screen and (orientation: landscape) {
+      #modal #pick_form {
+        width: 40vw;
+        height: 50vh; } }
     @media only screen and (min-width: 1025px) {
       #modal #pick_form {
         background-color: #1a2533;

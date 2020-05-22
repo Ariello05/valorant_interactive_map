@@ -69,7 +69,6 @@ div#interactive_space {
       @include size(100%, 100%);
       object-fit: contain;
     }
-    //transform: scale(0.5, 0.5);
     background-color: $secondary_theme;
   }
   #map_svg {
@@ -91,6 +90,17 @@ div#interactive_space {
       &:hover {
         fill: darken($color: #806128, $amount: 5%);
         fill-opacity: 0.5;
+      }
+    }
+    .sageBarrier {
+      fill-opacity: 0;
+      fill: $button_color;
+      stroke: $button_color;
+      stroke-width: 2;
+      stroke-opacity: 0.9;
+      cursor: pointer;
+      &:hover {
+        fill-opacity: 0.2;
       }
     }
   }
@@ -156,8 +166,6 @@ div#interactive_space {
         height: 70px;
         object-fit: contain;
         cursor: pointer;
-
-        color: $button_distinctive;
       }
     }
     .arrow_left {
@@ -218,13 +226,21 @@ div#interactive_space {
   justify-content: center;
   z-index: 2;
   background-color: rgba(0, 0, 0, 0.5);
-  @include media('desktop') {
-    background-color: rgba(0, 0, 0, 0);
-    grid-row: 2/2;
-    grid-column: 3/3;
-    display: flex;
+
+  @media only screen and (orientation: landscape) {
+    grid-column: 2/3;
+    grid-row: 2/3;
     align-items: center;
     justify-content: center;
+  }
+
+  @include media('desktop') {
+    background-color: rgba(0, 0, 0, 0);
+    margin-left: 4px;
+    grid-row: 2/2;
+    grid-column: 3/3;
+    align-items: flex-start;
+    justify-content: flex-start;
     .close {
       display: none;
     }
@@ -253,7 +269,9 @@ div#interactive_space {
       border-bottom: solid 1px $gray_border;
       margin-bottom: 10px;
     }
-
+    @media only screen and (orientation: landscape) {
+      @include size(40vw, 50vh);
+    }
     @include media('desktop') {
       background-color: $secondary_theme;
       @include simple_box_shadow($secondary_theme);

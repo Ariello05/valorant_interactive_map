@@ -18,7 +18,7 @@ const map_names = {
 }
 
 const map_fetches = {
-  BIND: 'https://api.jsonbin.io/b/5ea03eb55fa47104cea5096d/4',
+  BIND: 'https://api.jsonbin.io/b/5ea03eb55fa47104cea5096d/7',
   SPLIT: '',
   HAVEN: ''
 }
@@ -47,12 +47,59 @@ const clear_interactive_map = () => {
   $('#map_svg').empty()
 }
 
-const turn_on_modal = () => {
+const toogle_modal = () => {
+  $('#pick_form').toggle(50)
   $('#modal').toggle(200)
 }
 
 const turn_off_modal = () => {
+  $('#pick_form').fadeOut(50)
   $('#modal').fadeOut(200)
+}
+
+const load_sage = (groups) => {
+  groups.forEach((group) => {
+    const src = group.source
+    const items = group.items
+
+    // eslint-disable-next-line no-undef
+    const new_group = d3
+      .select('#map_svg')
+      .append('g')
+      .on('click', () => {
+        turn_on_overlay(src)
+      })
+      .attr('class', 'clickable')
+
+    items.forEach((item) => {
+      console.log('halo1')
+      if (item.type === 'sageBarrier') {
+        console.log('halo')
+        new_group.attr(
+          'transform',
+          `rotate(${item.rotate} ${item.x + 25} ${item.y + 23})`
+        )
+
+        new_group
+          .append('image')
+          .attr('x', `${item.x}`)
+          .attr('y', `${item.y}`)
+          .attr('width', 50)
+          .attr('height', 56)
+          .attr('xlink:href', 'resource/sage_barrier.png')
+
+        new_group
+          .append('rect')
+          .attr('x', `${item.x - 4}`)
+          .attr('y', `${item.y + 5}`)
+          .attr('rx', 5)
+          .attr('ry', 5)
+          .attr('width', 58)
+          .attr('height', 45)
+          .attr('class', `${item.class}`)
+      }
+    })
+  })
 }
 
 const get_data_processor = () => {
@@ -60,10 +107,9 @@ const get_data_processor = () => {
 
   const process_data = (data) => {
     last_used = data
-    let groups = null
     switch (filterBy) {
       case champion_names.SAGE:
-        groups = data.sage
+        load_sage(data.sage)
         break
 
       case champion_names.SOVA:
@@ -77,31 +123,6 @@ const get_data_processor = () => {
       default:
         throw new Error(errors.notImplementedError)
     }
-
-    groups.forEach((group) => {
-      const src = group.source
-
-      // eslint-disable-next-line no-undef
-      const new_group = d3
-        .select('#map_svg')
-        .append('g')
-        .on('click', () => {
-          turn_on_overlay(src)
-        })
-        .attr('class', 'clickable')
-
-      const items = group.items
-      items.forEach((item) => {
-        if (item.type === 'circle') {
-          new_group
-            .append('circle')
-            .attr('cx', `${item.cx}`)
-            .attr('cy', `${item.cy}`)
-            .attr('r', `${item.r}`)
-            .attr('class', `${item.class}`)
-        }
-      })
-    })
   }
   const refresh_with_data = () => {
     if (!$.isEmptyObject(last_used)) {
@@ -130,15 +151,11 @@ const turn_off_overlay = (delay = 200) => {
 }
 
 const put_render_loading_title = () => {
-  /* $('#interactive_space').append(
-    '<span>Loading...</span>'
-  ) */
+  $('#interactive_space').append('<span>Loading...</span>')
 }
 
 const clear_render_loading_title = () => {
-  /*
   $('#interactive_space').empty('span')
-  */
 }
 
 const handle_data_fetch = (map_name) => {
@@ -152,7 +169,6 @@ const handle_data_fetch = (map_name) => {
   })
     .then((response) => response.json())
     .then((result) => {
-      // $('#map_svg').empty()
       process_data(result)
       fade_end(120, map_names.BIND, clear_render_loading_title)
       return result
@@ -162,12 +178,12 @@ const handle_data_fetch = (map_name) => {
 /**
  * Memoized fetcher
  */
-function get_fetcher() {
+const get_fetcher = () => {
   let bind_data = {}
   // let split_data = {}
   // let heaven_data = {}
 
-  function data_fetch(map_name) {
+  const data_fetch = (map_name) => {
     switch (map_name) {
       case map_names.BIND:
         if ($.isEmptyObject(bind_data)) {
@@ -216,7 +232,7 @@ const fade_end = (time, map) => {
 }
 
 $(document).ready(() => {
-  update_map('bind')
+  //update_map('bind')
   $('#map_list_item_split').click((ev) => {
     update_map('split')
   })
@@ -227,7 +243,7 @@ $(document).ready(() => {
     update_map('haven')
   })
   $('#open_filter').click((ev) => {
-    turn_on_modal()
+    toogle_modal()
   })
   $('#filter_li_sage').click((ev) => {
     activeFilter.removeClass('active_item')
