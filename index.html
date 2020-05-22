@@ -14,6 +14,17 @@
 
   <body>
     <main id="container">
+      <article id="modal">
+        <div id="pick_form">
+          <nav class="close" onclick="turn_off_modal()"><span>X</span></nav>
+          <ul id="filter_list">
+            <span class="label">Pick a Hero:</span>
+            <li class="item active_item" id="filter_li_sage">Sage</li>
+            <li class="item" id="filter_li_sova">Sova</li>
+            <li class="item" id="filter_li_brimstone">Brimstone</li>
+          </ul>
+        </div>
+      </article>
       <nav id="settings_navigator">
         <ul id="maps_list">
           <li class="item active_item" id="map_list_item_bind">Bind</li>
@@ -21,12 +32,7 @@
           <li class="item" id="map_list_item_haven">Haven</li>
         </ul>
         <ul id="heroes_list">
-          <li class="item">Sage</li>
-          <!--
-          <li class="item">Sova</li>
-          <li class="item">Brimstone</li>
-          <li class="item">Raze</li>
-          <li class="item">Jett</li>-->
+          <li class="item" id="open_filter">Filter</li>
         </ul>
       </nav>
       <div id="interactive_space">
@@ -38,8 +44,13 @@
         <img src="resource/bind.png" id="map_image" />
       </div>
     </main>
-    <article id="overlay" onclick="turn_off_overlay()">
-      <div id="overlay_container"></div>
+    <article id="overlay">
+      <div id="overlay_container">
+        <div class="arrow arrow_left"><img src="resource/arrow.png" /></div>
+        <div id="image_container"></div>
+        <div class="arrow arrow_right"><img src="resource/arrow.png" /></div>
+        <nav class="close" onclick="turn_off_overlay()"><span>X</span></nav>
+      </div>
     </article>
 
     <script src="js/scripts.js"></script>

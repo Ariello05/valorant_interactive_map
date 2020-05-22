@@ -1,9 +1,14 @@
 /* eslint-disable camelcase */
-var activeButton = $('#map_list_item_bind')
 
 const errors = {
   argumentError: 'Invalid argument in a function call',
   notImplementedError: "This functionality wasnt't implemented"
+}
+
+const champion_names = {
+  SAGE: 'sage',
+  SOVA: 'sova',
+  BRIMSTONE: 'brimstone'
 }
 
 const map_names = {
@@ -13,10 +18,14 @@ const map_names = {
 }
 
 const map_fetches = {
-  BIND: 'https://api.jsonbin.io/b/5ea03eb55fa47104cea5096d/2',
+  BIND: 'https://api.jsonbin.io/b/5ea03eb55fa47104cea5096d/4',
   SPLIT: '',
   HAVEN: ''
 }
+
+var activeMapButton = $('#map_list_item_bind')
+var activeFilter = $('#filter_li_sage')
+var filterBy = champion_names.SAGE
 
 const get_url_for_map = (map_name) => {
   switch (map_name) {
@@ -38,10 +47,76 @@ const clear_interactive_map = () => {
   $('#map_svg').empty()
 }
 
+const turn_on_modal = () => {
+  $('#modal').toggle(200)
+}
+
+const turn_off_modal = () => {
+  $('#modal').fadeOut(200)
+}
+
+const get_data_processor = () => {
+  let last_used = {}
+
+  const process_data = (data) => {
+    last_used = data
+    let groups = null
+    switch (filterBy) {
+      case champion_names.SAGE:
+        groups = data.sage
+        break
+
+      case champion_names.SOVA:
+        groups = data.sova
+        break
+
+      case champion_names.BRIMSTONE:
+        groups = data.brimstone
+        break
+
+      default:
+        throw new Error(errors.notImplementedError)
+    }
+
+    groups.forEach((group) => {
+      const src = group.source
+
+      // eslint-disable-next-line no-undef
+      const new_group = d3
+        .select('#map_svg')
+        .append('g')
+        .on('click', () => {
+          turn_on_overlay(src)
+        })
+        .attr('class', 'clickable')
+
+      const items = group.items
+      items.forEach((item) => {
+        if (item.type === 'circle') {
+          new_group
+            .append('circle')
+            .attr('cx', `${item.cx}`)
+            .attr('cy', `${item.cy}`)
+            .attr('r', `${item.r}`)
+            .attr('class', `${item.class}`)
+        }
+      })
+    })
+  }
+  const refresh_with_data = () => {
+    if (!$.isEmptyObject(last_used)) {
+      process_data(last_used)
+    }
+  }
+  return { process_data, refresh_with_data }
+}
+
+const { process_data, refresh_with_data } = get_data_processor()
+
 const turn_on_overlay = (image_to_show_id) => {
   console.log(image_to_show_id)
 
-  $('#overlay').children().append(
+  $('#overlay_container').children('#image_container').append(
     ` <div class="card">
     <img src="resource/${image_to_show_id}"/>
     </div>`
@@ -51,7 +126,7 @@ const turn_on_overlay = (image_to_show_id) => {
 }
 const turn_off_overlay = (delay = 200) => {
   $('#overlay').fadeOut(delay)
-  $('#overlay').children().empty()
+  $('#overlay_container').children('#image_container').empty()
 }
 
 const put_render_loading_title = () => {
@@ -120,53 +195,27 @@ function get_fetcher() {
         throw new Error(errors.argumentError)
     }
   }
+
   return data_fetch
 }
 
 const update_map = get_fetcher()
 
-function fade_start(time, on_finished = null) {
+const fade_start = (time, on_finished = null) => {
   clear_interactive_map()
   $('#interactive_space').fadeOut(time, on_finished)
 }
 
-function fade_end(time, map) {
+const fade_end = (time, map) => {
   $('#map_image').attr('src', `resource/${map}.png`)
-  activeButton.removeClass('active_item')
-  activeButton = $(`#map_list_item_${map}`)
-  activeButton.addClass('active_item')
+  activeMapButton.removeClass('active_item')
+  activeMapButton = $(`#map_list_item_${map}`)
+  activeMapButton.addClass('active_item')
   $('#interactive_space').fadeIn(time)
 }
 
-const process_data = (data) => {
-  const groups = data.groups
-  groups.forEach((group) => {
-    const src = group.source
-
-    // eslint-disable-next-line no-undef
-    const new_group = d3
-      .select('#map_svg')
-      .append('g')
-      .on('click', () => {
-        turn_on_overlay(src)
-      })
-      .attr('class', 'clickable')
-
-    const items = group.items
-    items.forEach((item) => {
-      if (item.type === 'circle') {
-        new_group
-          .append('circle')
-          .attr('cx', `${item.cx}`)
-          .attr('cy', `${item.cy}`)
-          .attr('r', `${item.r}`)
-          .attr('class', `${item.class}`)
-      }
-    })
-  })
-}
-
 $(document).ready(() => {
+  update_map('bind')
   $('#map_list_item_split').click((ev) => {
     update_map('split')
   })
@@ -176,23 +225,31 @@ $(document).ready(() => {
   $('#map_list_item_haven').click((ev) => {
     update_map('haven')
   })
-  $('#overlay').click((ev) => {
-    turn_off_overlay()
+  $('#open_filter').click((ev) => {
+    turn_on_modal()
+  })
+  $('#filter_li_sage').click((ev) => {
+    activeFilter.removeClass('active_item')
+    activeFilter = $('#filter_li_sage')
+    activeFilter.addClass('active_item')
+    filterBy = champion_names.SAGE
+    clear_interactive_map()
+    refresh_with_data()
+  })
+  $('#filter_li_sova').click((ev) => {
+    activeFilter.removeClass('active_item')
+    activeFilter = $('#filter_li_sova')
+    activeFilter.addClass('active_item')
+    filterBy = champion_names.SOVA
+    clear_interactive_map()
+    refresh_with_data()
+  })
+  $('#filter_li_brimstone').click((ev) => {
+    activeFilter.removeClass('active_item')
+    activeFilter = $('#filter_li_brimstone')
+    activeFilter.addClass('active_item')
+    filterBy = champion_names.BRIMSTONE
+    clear_interactive_map()
+    refresh_with_data()
   })
 })
-
-/* LIST LOGIC
-  $("#hero_button").click((ev) => {
-    let list = $("#hero_list");
-    if (list.is(":visible")) {
-      $("#hero_list").slideUp(300);
-      $("#hero_button")
-        .children(".arrow")
-        .css({ transform: "rotate(-90deg)", top: "4px", left: "3px" });
-    } else {
-      $("#hero_list").slideDown(300);
-      $("#hero_button")
-        .children(".arrow")
-        .css({ transform: "rotate(0deg)", top: "0px", left: "0px" });
-    }
-  }); */

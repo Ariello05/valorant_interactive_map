@@ -38,6 +38,12 @@ nav#settings_navigator {
     align-self: flex-end;
     @include settings_list() {
       width: 50%;
+      .item:hover {
+        background-color: darken($button_color, 5%);
+        margin-left: 4px;
+        margin-right: 4px;
+        transform: scale(1.07, 1.07);
+      }
     }
   }
 }
@@ -119,12 +125,6 @@ div#interactive_space {
   border: solid 1px lighten($button_color, 5%);
   transition: transform 0.2s, margin 0.2s;
   transition: background-color 0.15s ease-in;
-  &:hover {
-    background-color: darken($button_color, 5%);
-    margin-left: 4px;
-    margin-right: 4px;
-    transform: scale(1.07, 1.07);
-  }
   &.active_item {
     background-color: lighten($button_color, 20%);
   }
@@ -143,16 +143,33 @@ div#interactive_space {
   bottom: 0;
   background-color: rgba(0, 0, 0, 0.5); /* Black background with opacity */
   z-index: 2; /* Specify a stack order in case you're using a different order for other elements */
-  cursor: pointer; /* Add a pointer on hover */
   #overlay_container {
     @include size(100%, 100%);
     display: flex;
     position: relative;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: center;
     align-items: center;
+    .arrow {
+      img {
+        width: 50px;
+        height: 70px;
+        object-fit: contain;
+        cursor: pointer;
+
+        color: $button_distinctive;
+      }
+    }
+    .arrow_left {
+      transform: rotate(90deg);
+    }
+
+    .arrow_right {
+      transform: rotate(-90deg);
+    }
   }
   .card {
+    cursor: pointer; /* Add a pointer on hover */
     @include size(90vw, 90vw);
     max-height: 90vh;
     @media only screen and (orientation: landscape) {
@@ -171,37 +188,97 @@ div#interactive_space {
     }
   }
 }
+.close {
+  @include size(30px, 30px);
+  @include media('desktop') {
+    @include size(50px, 50px);
+  }
+  background-color: $button_distinctive;
+  border-radius: 10px;
+  color: $white_text;
+  position: absolute;
+  cursor: pointer;
+  top: 8px;
+  right: 16px;
+  left: auto;
+  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  &:hover {
+    background-color: lighten($button_distinctive, 20%);
+  }
+}
+
+#modal {
+  grid-row: 2/2;
+  grid-column: 2/3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  background-color: rgba(0, 0, 0, 0.5);
+  @include media('desktop') {
+    background-color: rgba(0, 0, 0, 0);
+    grid-row: 2/2;
+    grid-column: 3/3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .close {
+      display: none;
+    }
+  }
+
+  #pick_form {
+    background-color: $main_theme;
+    position: relative;
+    padding: 10px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    @include size(50vw, 40vh);
+
+    #filter_list {
+      padding: 10px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+    .label {
+      color: $white_text;
+      font-size: 1.1rem;
+      border-bottom: solid 1px $gray_border;
+      margin-bottom: 10px;
+    }
+
+    @include media('desktop') {
+      background-color: $secondary_theme;
+      @include simple_box_shadow($secondary_theme);
+      @include size(140px, 220px);
+      min-width: 5vw;
+      min-height: 4vh;
+      font-size: 20px;
+      .item:hover {
+        background-color: darken($button_color, 5%);
+        margin-top: 4px;
+        margin-bottom: 4px;
+        transform: scale(1.07, 1.07);
+      }
+    }
+    @include media('desktop-huge') {
+      background-color: $secondary_theme;
+      @include simple_box_shadow($secondary_theme);
+      @include size(160px, 360px);
+      font-size: 30px;
+      margin-left: 2px;
+      margin-right: 2px;
+    }
+  }
+}
 
 .clickable {
   cursor: pointer;
 }
-/*
-.nav_button {
-  cursor: pointer;
-  margin: 0;
-  padding: 0;
-  width: 100%;
-  height: 4em;
-  align-self: flex-start;
-  background-color: #787;
-  display: flex;
-  align-items: center;
-  //border-style: solid;
-  //border-width: 1px;
-  //border-color: #999;
-  box-shadow: 2px 2px 5px 1px gray_border;
-  .arrow {
-    // transform: rotate(-90deg);
-    transition: transform 0.4s, left 0.3s, top 0.3s;
-    transition-timing-function: ease;
-    stroke: white;
-    width: 25px;
-    height: 18px;
-    padding-left: 5px;
-  }
-  .button-text {
-    text-align: left;
-    padding-left: 10px;
-  }
-}
-*/

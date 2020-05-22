@@ -1,0 +1,31 @@
+{
+  "map": "bind",
+  "brimstone": [
+    {
+      "source": "smiley.jpg",
+      "items": [
+        {
+          "type": "circle",
+          "cx": 630,
+          "cy": 489,
+          "r": 40,
+          "class": "standardCircle"
+        }
+      ]
+    }
+  ],
+  "sage": [
+  {
+      "source": "smiley.jpg",
+      "items": [
+        {
+          "type": "circle",
+          "cx": 430,
+          "cy": 489,
+          "r": 30,
+          "class": "standardCircle"
+        }
+      ]
+    }
+  ]
+}
