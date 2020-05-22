@@ -16,7 +16,7 @@
   ],
   "sage": [
   {
-      "source": "smiley.jpg",
+      "source": ["smiley.jpg","sage_barrier_top.png"],
       "items": [
         {
           "type": "sageBarrier",
