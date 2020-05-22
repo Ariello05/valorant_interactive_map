@@ -298,6 +298,12 @@ const fade_end = (time, map) => {
 
 $(document).ready(() => {
   update_map('bind')
+  $('#overlay').click((ev) => {
+    if (ev.target.nodeName !== 'IMG') {
+      turn_off_overlay()
+    }
+    console.log(ev)
+  })
   $('#map_list_item_split').click((ev) => {
     update_map('split')
   })
