@@ -26,3 +26,24 @@
     @content;
   }
 }
+
+@mixin block_size($color) {
+  @include size(20vw, 7vh);
+  font-size: 4vw;
+  margin: 1px;
+
+  @include media('desktop') {
+    @include simple_box_shadow($color);
+    @include size(90px, 40px);
+    min-width: 5vw;
+    min-height: 4vh;
+    font-size: 20px;
+  }
+  @include media('desktop-huge') {
+    @include simple_box_shadow($color);
+    @include size(120px, 60px);
+    font-size: 30px;
+    margin-left: 2px;
+    margin-right: 2px;
+  }
+}

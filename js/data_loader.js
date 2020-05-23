@@ -156,9 +156,9 @@ const get_data_processor = () => {
         throw new Error(errors.notImplementedError)
     }
   }
-  const refresh_with_data = () => {
+  const refresh_with_data = (filterBy) => {
     if (!$.isEmptyObject(last_used)) {
-      process_data(last_used)
+      process_data(last_used, filterBy)
     }
   }
   return { process_data, refresh_with_data }

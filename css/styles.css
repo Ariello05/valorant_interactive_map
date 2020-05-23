@@ -1,4 +1,4 @@
-.item, #overlay .card {
+.item, #overlay .card, .dropdown > .dropdown_label {
   display: flex;
   align-items: center;
   justify-content: center; }
@@ -20,6 +20,7 @@ main#container {
       grid-template: 6% 1fr 15px/1fr 50vw 1fr; } }
 
 nav#settings_navigator {
+  z-index: 2;
   grid-column: 2/3;
   grid-row: 1/2;
   display: flex;
@@ -27,7 +28,7 @@ nav#settings_navigator {
   justify-content: space-around;
   align-items: flex-end;
   margin-top: 10px; }
-  nav#settings_navigator ul {
+  nav#settings_navigator > ul {
     margin: 0;
     padding: 0;
     margin-bottom: 1px;
@@ -35,18 +36,18 @@ nav#settings_navigator {
     flex-direction: row;
     list-style-type: none;
     align-self: flex-end; }
-    nav#settings_navigator ul#maps_list {
+    nav#settings_navigator > ul#maps_list {
       width: 50%; }
-      nav#settings_navigator ul#maps_list .item:hover {
+      nav#settings_navigator > ul#maps_list > .item:hover {
         background-color: #23315d;
         margin-left: 4px;
         margin-right: 4px;
         transform: scale(1.07, 1.07); }
-    nav#settings_navigator ul#heroes_list {
+    nav#settings_navigator > ul#heroes_list {
       width: 50%;
       justify-content: flex-end;
       flex-wrap: wrap; }
-      nav#settings_navigator ul#heroes_list .item:hover {
+      nav#settings_navigator > ul#heroes_list > .item:hover {
         background-color: #23315d;
         margin-left: 4px;
         margin-right: 4px;
@@ -212,77 +213,45 @@ div#interactive_space {
   .close:hover {
     background-color: #ff6f0a; }
 
-#modal {
-  grid-row: 2/2;
-  grid-column: 2/3;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 2;
-  background-color: rgba(0, 0, 0, 0.5); }
-  @media only screen and (orientation: landscape) {
-    #modal {
-      grid-column: 2/3;
-      grid-row: 2/3;
-      align-items: center;
-      justify-content: center; } }
-  @media only screen and (min-width: 1025px) {
-    #modal {
-      background-color: rgba(0, 0, 0, 0);
-      margin-left: 4px;
-      grid-row: 2/2;
-      grid-column: 3/3;
-      align-items: flex-start;
-      justify-content: flex-start; }
-      #modal .close {
-        display: none; } }
-  #modal #pick_form {
-    background-color: #181b24;
-    position: relative;
-    padding: 10px;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 50vw;
-    height: 40vh; }
-    #modal #pick_form #filter_list {
-      padding: 10px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center; }
-    #modal #pick_form .label {
-      color: #ddd;
-      font-size: 1.1rem;
-      border-bottom: solid 1px #545454;
-      margin-bottom: 10px; }
-    @media only screen and (orientation: landscape) {
-      #modal #pick_form {
-        width: 40vw;
-        height: 50vh; } }
+.dropdown {
+  position: relative;
+  display: block; }
+  .dropdown > .dropdown_content {
+    background-color: #2a3b70;
+    opacity: 0.9;
+    right: 0;
+    display: none;
+    position: absolute;
+    padding: 0;
+    box-shadow: 3px 3px 10px 1px #2a3b70; }
+    .dropdown > .dropdown_content > .item:hover {
+      background-color: #23315d;
+      margin-top: 4px;
+      margin-bottom: 4px;
+      transform: scale(1, 1.07); }
+  .dropdown > .dropdown_label {
+    box-shadow: 3px 3px 10px 1px #2a3b70;
+    width: 16vw;
+    height: 7vh;
+    font-size: 20px;
+    background-color: #2a3b70;
+    border-radius: 2px;
+    border: solid 1px #314583;
+    transition: transform 0.2s, margin 0.2s;
+    transition: background-color 0.15s ease-in;
+    color: white; }
     @media only screen and (min-width: 1025px) {
-      #modal #pick_form {
-        background-color: #1a2533;
-        box-shadow: 3px 3px 10px 1px #1a2533;
-        width: 140px;
-        height: 220px;
-        min-width: 5vw;
-        min-height: 4vh;
-        font-size: 20px; }
-        #modal #pick_form .item:hover {
-          background-color: #23315d;
-          margin-top: 4px;
-          margin-bottom: 4px;
-          transform: scale(1.07, 1.07); } }
-    @media only screen and (min-width: 2000px) {
-      #modal #pick_form {
-        background-color: #1a2533;
-        box-shadow: 3px 3px 10px 1px #1a2533;
-        width: 160px;
-        height: 360px;
-        font-size: 30px;
-        margin-left: 2px;
-        margin-right: 2px; } }
+      .dropdown > .dropdown_label {
+        width: 50px;
+        height: 40px; } }
+    .dropdown > .dropdown_label > .dropdown_label_image {
+      width: auto;
+      height: 40%; }
+  .dropdown:hover > .dropdown_content {
+    display: block; }
+  .dropdown:hover > .dropdown_label {
+    background-color: #23315d;
+    transform: scale(1.07, 1.07); }
 
 .clickable {
   cursor: pointer; }

@@ -163,7 +163,7 @@ $(document).ready(() => {
     activeFilter.addClass('active_item')
     filterBy = champion_names.SAGE
     clear_interactive_map()
-    refresh_with_data()
+    refresh_with_data(filterBy)
   })
   $('#filter_li_sova').click((ev) => {
     activeFilter.removeClass('active_item')
@@ -171,7 +171,7 @@ $(document).ready(() => {
     activeFilter.addClass('active_item')
     filterBy = champion_names.SOVA
     clear_interactive_map()
-    refresh_with_data()
+    refresh_with_data(filterBy)
   })
   $('#filter_li_brimstone').click((ev) => {
     activeFilter.removeClass('active_item')
@@ -179,6 +179,6 @@ $(document).ready(() => {
     activeFilter.addClass('active_item')
     filterBy = champion_names.BRIMSTONE
     clear_interactive_map()
-    refresh_with_data()
+    refresh_with_data(filterBy)
   })
 })
