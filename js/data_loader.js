@@ -52,28 +52,36 @@ const select_image = (id, index) => {
 }
 
 const turn_on_overlay = (images_id) => {
-  $('#overlay').fadeIn(200)
-  $('#overlay_container').children('#image_container').append(
-    ` <div class="card">
-    <img src="resource/image/${imagesArray[images_id][0]}"/>
-    </div>`
-  )
-  $('#arrow_left').css('visibility', 'hidden')
-  if (imagesArray[images_id].length > 1) {
-    $('#arrow_right')
-      .css('visibility', 'visible')
-      .off('click')
-      .click((ev) => {
-        select_image(images_id, 1)
-      })
-  } else {
-    $('#arrow_right').css('visibility', 'hidden')
+  const finish = () => {
+    $('#arrow_left').css('visibility', 'hidden')
+    if (imagesArray[images_id].length > 1) {
+      $('#arrow_right')
+        .css('visibility', 'visible')
+        .off('click')
+        .click((ev) => {
+          select_image(images_id, 1)
+        })
+    } else {
+      $('#arrow_right').css('visibility', 'hidden')
+    }
   }
+
+  $('#overlay').fadeIn(200)
+  $('#image_container')
+    .children('.card')
+    .append(
+      $('<img>', {
+        id: 'overlay_image',
+        src: `resource/image/${imagesArray[images_id][0]}`,
+        onload: finish
+      })
+    )
 }
 
 const turn_off_overlay = (delay = 200) => {
-  $('#overlay').fadeOut(delay)
-  $('#overlay_container').children('#image_container').empty()
+  $('#overlay').fadeOut(delay, () => {
+    $('#image_container').children('.card').empty()
+  })
 }
 
 const load_sage = (groups) => {
