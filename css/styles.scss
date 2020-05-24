@@ -102,17 +102,29 @@ div#interactive_space {
       @extend %flex-center;
       @include size(12vh, 6vh);
       font-size: 1rem;
+      &.toggle_off {
+        font-size: 0.8rem;
+      }
       letter-spacing: 2px;
       @include media('tablet') {
         font-size: 2rem;
+        &.toggle_off {
+          font-size: 1.8rem;
+        }
         @include size(14vh, 7vh);
       }
       @include media_landscape {
         @include size(22vh, 11vh);
         font-size: 1rem;
+        &.toggle_off {
+          font-size: 0.8rem;
+        }
       }
       @include media('desktop') {
         font-size: 1.2rem;
+        &.toggle_off {
+          font-size: 1rem;
+        }
         @include size(80px, 40px);
       }
     }
@@ -246,23 +258,17 @@ div#interactive_space {
       }
     }
     #arrow_left {
-      transform: rotate(90deg);
+      transform: rotate(180deg);
       order: 1;
       @include media('tablet') {
-        order: 0;
-      }
-      @include media_landscape {
         order: 0;
       }
     }
 
     #arrow_right {
-      transform: rotate(-90deg);
+      // transform: rotate(-0);
       order: 2;
       @include media('tablet') {
-        order: 0;
-      }
-      @include media_landscape {
         order: 0;
       }
     }
@@ -304,7 +310,7 @@ div#interactive_space {
 .close {
   @include size(30px, 30px);
   border-radius: 5px;
-  @include media('desktop') {
+  @include media('tablet') {
     @include size(50px, 50px);
     border-radius: 10px;
   }
@@ -362,6 +368,11 @@ div#interactive_space {
     font-size: 20px;
 
     background-color: $button_color;
+    background-image: linear-gradient(
+      180deg,
+      $button_color,
+      darken($button_color, 5%)
+    );
     border-radius: 2px;
     border: solid 1px lighten($button_color, 5%);
     transition: transform 0.2s, margin 0.2s;

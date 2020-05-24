@@ -52,6 +52,7 @@ const select_image = (id, index) => {
 }
 
 const turn_on_overlay = (images_id) => {
+  $('#overlay').fadeIn(200)
   $('#overlay_container').children('#image_container').append(
     ` <div class="card">
     <img src="resource/image/${imagesArray[images_id][0]}"/>
@@ -68,8 +69,6 @@ const turn_on_overlay = (images_id) => {
   } else {
     $('#arrow_right').css('visibility', 'hidden')
   }
-
-  $('#overlay').fadeIn(200)
 }
 
 const turn_off_overlay = (delay = 200) => {

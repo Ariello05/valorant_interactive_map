@@ -101,21 +101,29 @@ div#interactive_space {
       height: 6vh;
       font-size: 1rem;
       letter-spacing: 2px; }
+      div#interactive_space > .side_toggle > .toggle_item.toggle_off {
+        font-size: 0.8rem; }
       @media all and (min-width: 768px) {
         div#interactive_space > .side_toggle > .toggle_item {
           font-size: 2rem;
           width: 14vh;
-          height: 7vh; } }
+          height: 7vh; }
+          div#interactive_space > .side_toggle > .toggle_item.toggle_off {
+            font-size: 1.8rem; } }
       @media only screen and (orientation: landscape) and (max-width: 1023px) {
         div#interactive_space > .side_toggle > .toggle_item {
           width: 22vh;
           height: 11vh;
-          font-size: 1rem; } }
+          font-size: 1rem; }
+          div#interactive_space > .side_toggle > .toggle_item.toggle_off {
+            font-size: 0.8rem; } }
       @media all and (min-width: 1400px) {
         div#interactive_space > .side_toggle > .toggle_item {
           font-size: 1.2rem;
           width: 80px;
-          height: 40px; } }
+          height: 40px; }
+          div#interactive_space > .side_toggle > .toggle_item.toggle_off {
+            font-size: 1rem; } }
     div#interactive_space > .side_toggle > #attacker_toggle_item.toggle_on {
       background-color: #b24232;
       background-image: linear-gradient(-45deg, #b24232, #cc5b4b);
@@ -126,8 +134,7 @@ div#interactive_space {
       cursor: pointer;
       background-color: #674e4a;
       background-image: linear-gradient(-45deg, #80514b, #35302f);
-      opacity: 0.6;
-      margin-bottom: -4%; }
+      opacity: 0.6; }
     div#interactive_space > .side_toggle > #defender_toggle_item.toggle_on {
       background-color: #4e69bb;
       background-image: linear-gradient(45deg, #4e69bb, #7388c9);
@@ -138,8 +145,7 @@ div#interactive_space {
       cursor: pointer;
       background-color: #666970;
       background-image: linear-gradient(45deg, #666f89, #454545);
-      opacity: 0.6;
-      margin-bottom: -4%; }
+      opacity: 0.6; }
   div#interactive_space img {
     position: absolute;
     top: 0;
@@ -277,21 +283,14 @@ div#interactive_space {
             width: 70px;
             height: 70px; } }
     #overlay #overlay_container #arrow_left {
-      transform: rotate(90deg);
+      transform: rotate(180deg);
       order: 1; }
       @media all and (min-width: 768px) {
         #overlay #overlay_container #arrow_left {
           order: 0; } }
-      @media only screen and (orientation: landscape) and (max-width: 1023px) {
-        #overlay #overlay_container #arrow_left {
-          order: 0; } }
     #overlay #overlay_container #arrow_right {
-      transform: rotate(-90deg);
       order: 2; }
       @media all and (min-width: 768px) {
-        #overlay #overlay_container #arrow_right {
-          order: 0; } }
-      @media only screen and (orientation: landscape) and (max-width: 1023px) {
         #overlay #overlay_container #arrow_right {
           order: 0; } }
     #overlay #overlay_container #image_container img {
@@ -337,7 +336,7 @@ div#interactive_space {
   display: flex;
   align-items: center;
   justify-content: center; }
-  @media all and (min-width: 1400px) {
+  @media all and (min-width: 768px) {
     .close {
       width: 50px;
       height: 50px;
@@ -369,6 +368,7 @@ div#interactive_space {
     height: 7vh;
     font-size: 20px;
     background-color: #2a3b70;
+    background-image: linear-gradient(180deg, #2a3b70, #23315d);
     border-radius: 2px;
     border: solid 1px #314583;
     transition: transform 0.2s, margin 0.2s;
