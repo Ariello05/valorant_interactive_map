@@ -5,13 +5,41 @@
     @content;
   }
   &#heroes_list {
-    @content justify-content: flex-end;
+    @content;
+    justify-content: flex-end;
     flex-wrap: wrap;
   }
 }
 
 @mixin simple_box_shadow($color) {
-  box-shadow: 3px 3px 10px 1px $color;
+  box-shadow: 1px 1px 5px 1px $color;
+}
+
+@mixin toggle($basic_color, $angle) {
+  &.toggle_on {
+    background-color: $basic_color;
+    background-image: linear-gradient(
+      $angle,
+      $basic_color,
+      lighten($basic_color, 10%)
+    );
+
+    opacity: 0.9;
+    transform: scale(1.08, 1.08);
+    z-index: 1;
+  }
+  &.toggle_off {
+    cursor: pointer;
+    background-color: darken(desaturate($basic_color, 40%), 10%);
+    background-image: linear-gradient(
+      $angle,
+      darken(desaturate($basic_color, 30%), 5%),
+      darken(desaturate($basic_color, 50%), 25%)
+    );
+
+    opacity: 0.6;
+    margin-bottom: -4%;
+  }
 }
 
 @mixin size($width, $height) {
@@ -26,27 +54,33 @@
   }
 }
 
+@mixin media_landscape() {
+  @media only screen and (orientation: landscape) and (max-width: 1023px) {
+    @content;
+  }
+}
+
 @mixin block_size($color) {
   @include size(20vw, 7vh);
-  font-size: 4vw;
+  font-size: 1.1rem;
   margin: 1px;
 
-  @media only screen and (orientation: landscape) and (max-width: 1024px) {
+  @media only screen and (orientation: landscape) and (max-width: 1023px) {
     @include size(18vw, 11vh);
-    font-size: 3.5vw;
   }
-
+  @include media('tablet') {
+    font-size: 1.8rem;
+  }
   @include media('desktop') {
     @include simple_box_shadow($color);
     @include size(90px, 40px);
     min-width: 5vw;
     min-height: 4vh;
-    font-size: 20px;
+    font-size: 1.1rem;
   }
   @include media('desktop-huge') {
     @include simple_box_shadow($color);
     @include size(120px, 60px);
-    font-size: 30px;
     margin-left: 2px;
     margin-right: 2px;
   }

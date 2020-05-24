@@ -7,6 +7,11 @@
     <title>Valorant map tips</title>
     <meta name="description" content="Valorant Interactive" />
     <meta name="author" content="Paweł Dychus" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Hind&family=Teko:wght@300&display=swap"
+      rel="stylesheet"
+    />
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://d3js.org/d3.v5.min.js"></script>
     <link rel="stylesheet" type="text/css" href="css/styles.css?v=1.0" />
@@ -23,7 +28,9 @@
         <ul id="heroes_list">
           <li class="dropdown" id="open_filter">
             <span class="dropdown_label"
-              ><img class="dropdown_label_image" src="resource/hamburger.svg"
+              ><img
+                class="dropdown_label_image"
+                src="resource/image/hamburger.svg"
             /></span>
             <ul class="dropdown_content">
               <li class="item active_item" id="filter_li_sage">Sage</li>
@@ -34,21 +41,29 @@
         </ul>
       </nav>
       <div id="interactive_space">
+        <div class="side_toggle">
+          <div class="toggle_item toggle_off" id="defender_toggle_item">
+            DEFENDER
+          </div>
+          <div class="toggle_item toggle_on" id="attacker_toggle_item">
+            ATTACKER
+          </div>
+        </div>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           id="map_svg"
           viewbox="0 0 1024 1024"
         ></svg>
-        <img src="resource/bind.png" id="map_image" />
+        <img src="resource/image/bind.png" id="map_image" />
       </div>
       <article id="overlay">
         <div id="overlay_container">
           <div class="arrow" id="arrow_left">
-            <img src="resource/arrow.png" />
+            <img src="resource/image/arrow.png" />
           </div>
           <div id="image_container"></div>
           <div class="arrow" id="arrow_right">
-            <img src="resource/arrow.png" />
+            <img src="resource/image/arrow.png" />
           </div>
           <nav class="close" onclick="turn_off_overlay()"><span>X</span></nav>
         </div>

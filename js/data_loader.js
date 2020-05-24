@@ -17,7 +17,7 @@ const select_image = (id, index) => {
   $('#overlay_container')
     .children('#image_container')
     .children('.card')
-    .append(`<img src= resource/${imagesArray[id][index]} />`)
+    .append(`<img src= resource/image/${imagesArray[id][index]} />`)
 
   if (index === 0) {
     $('#arrow_right')
@@ -54,7 +54,7 @@ const select_image = (id, index) => {
 const turn_on_overlay = (images_id) => {
   $('#overlay_container').children('#image_container').append(
     ` <div class="card">
-    <img src="resource/${imagesArray[images_id][0]}"/>
+    <img src="resource/image/${imagesArray[images_id][0]}"/>
     </div>`
   )
   $('#arrow_left').css('visibility', 'hidden')
@@ -114,7 +114,7 @@ const load_sage = (groups) => {
           .attr('y', `${item.y}`)
           .attr('width', 50)
           .attr('height', 56)
-          .attr('xlink:href', 'resource/sage_barrier.png')
+          .attr('xlink:href', 'resource/image/sage_barrier.png')
 
         new_group
           .append('rect')

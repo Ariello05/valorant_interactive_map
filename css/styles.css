@@ -1,10 +1,11 @@
-.item, #overlay .card, .dropdown > .dropdown_label {
+div#interactive_space > .side_toggle > .toggle_item, .item, #overlay .card, .dropdown > .dropdown_label {
   display: flex;
   align-items: center;
   justify-content: center; }
 
 body {
   background-color: #181b24;
+  font-family: 'Hind', sans-serif;
   box-sizing: border-box;
   margin: 0;
   padding: 0; }
@@ -14,13 +15,19 @@ main#container {
   height: 100vh;
   display: grid;
   overflow: hidden;
-  grid-template: 8% 1fr 10px/1fr 98vw 1fr; }
-  @media only screen and (orientation: landscape) and (max-width: 1024px) {
+  grid-template: 8% 1fr 10px/1fr 98vw 1fr;
+  font-size: 100%; }
+  @media only screen and (orientation: landscape) and (max-width: 1023px) {
     main#container {
-      grid-template: 12% 1fr 10px/1fr 98vw 1fr; } }
+      grid-template: 12% 1fr 10px/1fr 98vw 1fr;
+      font-size: 100%; } }
+  @media all and (min-width: 768px) {
+    main#container {
+      font-size: 140%; } }
   @media all and (min-width: 1400px) {
     main#container {
-      grid-template: 5% 1fr 15px/1fr 50vw 1fr; } }
+      grid-template: 6% 1fr 15px/1fr 50vw 1fr;
+      font-size: 100%; } }
 
 nav#settings_navigator {
   z-index: 2;
@@ -42,7 +49,9 @@ nav#settings_navigator {
     nav#settings_navigator > ul#maps_list {
       width: 50%; }
       nav#settings_navigator > ul#maps_list > .item:hover {
+        border-color: #23315d;
         background-color: #23315d;
+        background-image: linear-gradient(180deg, #23315d, #1c274b);
         margin-left: 4px;
         margin-right: 4px;
         transform: scale(1.07, 1.07); }
@@ -51,7 +60,9 @@ nav#settings_navigator {
       justify-content: flex-end;
       flex-wrap: wrap; }
       nav#settings_navigator > ul#heroes_list > .item:hover {
+        border-color: #23315d;
         background-color: #23315d;
+        background-image: linear-gradient(180deg, #23315d, #1c274b);
         margin-left: 4px;
         margin-right: 4px;
         transform: scale(1.07, 1.07); }
@@ -64,27 +75,91 @@ div#interactive_space {
   overflow: scroll; }
   @media all and (min-width: 1400px) {
     div#interactive_space {
-      box-shadow: 3px 3px 10px 1px #1a2533;
+      box-shadow: 1px 1px 5px 1px #1a2533;
       overflow: hidden; } }
+  div#interactive_space > .side_toggle {
+    font-family: 'Teko', sans-serif;
+    display: inline-flex;
+    flex-direction: row;
+    left: 2px;
+    top: 2px;
+    margin: 6px;
+    z-index: 2;
+    position: -webkit-sticky;
+    /* Safari */
+    position: sticky; }
+    @media all and (min-width: 768px) {
+      div#interactive_space > .side_toggle {
+        margin: 6px; } }
+    @media only screen and (orientation: landscape) and (max-width: 1023px) {
+      div#interactive_space > .side_toggle {
+        margin: 6px; } }
+    div#interactive_space > .side_toggle > .toggle_item {
+      color: #ddd;
+      border-radius: 2px;
+      width: 12vh;
+      height: 6vh;
+      font-size: 1rem;
+      letter-spacing: 2px; }
+      @media all and (min-width: 768px) {
+        div#interactive_space > .side_toggle > .toggle_item {
+          font-size: 2rem;
+          width: 14vh;
+          height: 7vh; } }
+      @media only screen and (orientation: landscape) and (max-width: 1023px) {
+        div#interactive_space > .side_toggle > .toggle_item {
+          width: 22vh;
+          height: 11vh;
+          font-size: 1rem; } }
+      @media all and (min-width: 1400px) {
+        div#interactive_space > .side_toggle > .toggle_item {
+          font-size: 1.2rem;
+          width: 80px;
+          height: 40px; } }
+    div#interactive_space > .side_toggle > #attacker_toggle_item.toggle_on {
+      background-color: #b24232;
+      background-image: linear-gradient(-45deg, #b24232, #cc5b4b);
+      opacity: 0.9;
+      transform: scale(1.08, 1.08);
+      z-index: 1; }
+    div#interactive_space > .side_toggle > #attacker_toggle_item.toggle_off {
+      cursor: pointer;
+      background-color: #674e4a;
+      background-image: linear-gradient(-45deg, #80514b, #35302f);
+      opacity: 0.6;
+      margin-bottom: -4%; }
+    div#interactive_space > .side_toggle > #defender_toggle_item.toggle_on {
+      background-color: #4e69bb;
+      background-image: linear-gradient(45deg, #4e69bb, #7388c9);
+      opacity: 0.9;
+      transform: scale(1.08, 1.08);
+      z-index: 1; }
+    div#interactive_space > .side_toggle > #defender_toggle_item.toggle_off {
+      cursor: pointer;
+      background-color: #666970;
+      background-image: linear-gradient(45deg, #666f89, #454545);
+      opacity: 0.6;
+      margin-bottom: -4%; }
   div#interactive_space img {
+    position: absolute;
+    top: 0;
+    left: 0;
     width: auto;
     height: 100%;
-    /* @include media('tablet') {
-      @include size(100%, 100%);
-      object-fit: contain;
-    } */
     background-color: #1a2533; }
     @media only screen and (min-aspect-ratio: 8 / 9) {
       div#interactive_space img {
         width: 100%;
         height: 100%;
         object-fit: contain; } }
-    @media only screen and (orientation: landscape) and (max-width: 1024px) {
+    @media only screen and (orientation: landscape) and (max-width: 1023px) {
       div#interactive_space img {
         width: 100vw;
         height: 100vw; } }
   div#interactive_space #map_svg {
     position: absolute;
+    top: 0;
+    left: 0;
     width: auto;
     height: 100%;
     z-index: 1; }
@@ -93,7 +168,7 @@ div#interactive_space {
         width: 100%;
         height: 100%;
         object-fit: contain; } }
-    @media only screen and (orientation: landscape) and (max-width: 1024px) {
+    @media only screen and (orientation: landscape) and (max-width: 1023px) {
       div#interactive_space #map_svg {
         width: 100vw;
         height: 100vw; } }
@@ -120,38 +195,41 @@ div#interactive_space {
 .item {
   cursor: pointer;
   background-color: #2a3b70;
+  background-image: linear-gradient(180deg, #2a3b70, #23315d);
   width: 20vw;
   height: 7vh;
-  font-size: 4vw;
+  font-size: 1.1rem;
   margin: 1px;
   color: white;
   border-radius: 2px;
-  border: solid 1px #314583;
+  border: solid 1px #2a3b70;
   transition: transform 0.2s, margin 0.2s;
   transition: background-color 0.15s ease-in; }
-  @media only screen and (orientation: landscape) and (max-width: 1024px) {
+  @media only screen and (orientation: landscape) and (max-width: 1023px) {
     .item {
       width: 18vw;
-      height: 11vh;
-      font-size: 3.5vw; } }
+      height: 11vh; } }
+  @media all and (min-width: 768px) {
+    .item {
+      font-size: 1.8rem; } }
   @media all and (min-width: 1400px) {
     .item {
-      box-shadow: 3px 3px 10px 1px #2a3b70;
+      box-shadow: 1px 1px 5px 1px #2a3b70;
       width: 90px;
       height: 40px;
       min-width: 5vw;
       min-height: 4vh;
-      font-size: 20px; } }
+      font-size: 1.1rem; } }
   @media all and (min-width: 2000px) {
     .item {
-      box-shadow: 3px 3px 10px 1px #2a3b70;
+      box-shadow: 1px 1px 5px 1px #2a3b70;
       width: 120px;
       height: 60px;
-      font-size: 30px;
       margin-left: 2px;
       margin-right: 2px; } }
   .item.active_item {
-    background-color: #4662ba; }
+    background-color: #4662ba;
+    background-image: linear-gradient(180deg, #4662ba, #384f95); }
 
 #overlay {
   position: fixed;
@@ -204,7 +282,7 @@ div#interactive_space {
       @media all and (min-width: 768px) {
         #overlay #overlay_container #arrow_left {
           order: 0; } }
-      @media only screen and (orientation: landscape) and (max-width: 1024px) {
+      @media only screen and (orientation: landscape) and (max-width: 1023px) {
         #overlay #overlay_container #arrow_left {
           order: 0; } }
     #overlay #overlay_container #arrow_right {
@@ -213,7 +291,7 @@ div#interactive_space {
       @media all and (min-width: 768px) {
         #overlay #overlay_container #arrow_right {
           order: 0; } }
-      @media only screen and (orientation: landscape) and (max-width: 1024px) {
+      @media only screen and (orientation: landscape) and (max-width: 1023px) {
         #overlay #overlay_container #arrow_right {
           order: 0; } }
     #overlay #overlay_container #image_container img {
@@ -248,7 +326,7 @@ div#interactive_space {
   width: 30px;
   height: 30px;
   border-radius: 5px;
-  background-color: #a34300;
+  background-color: #be2410;
   color: #ddd;
   position: absolute;
   cursor: pointer;
@@ -265,7 +343,7 @@ div#interactive_space {
       height: 50px;
       border-radius: 10px; } }
   .close:hover {
-    background-color: #ff6f0a; }
+    background-color: #ef5845; }
 
 .dropdown {
   position: relative;
@@ -277,15 +355,17 @@ div#interactive_space {
     display: none;
     position: absolute;
     padding: 0;
-    box-shadow: 3px 3px 10px 1px #2a3b70; }
+    box-shadow: 1px 1px 5px 1px #2a3b70; }
     .dropdown > .dropdown_content > .item:hover {
+      border-color: #23315d;
       background-color: #23315d;
+      background-image: linear-gradient(180deg, #23315d, #1c274b);
       margin-top: 4px;
       margin-bottom: 4px;
       transform: scale(1, 1.07); }
   .dropdown > .dropdown_label {
-    box-shadow: 3px 3px 10px 1px #2a3b70;
-    width: 16vw;
+    box-shadow: 1px 1px 5px 1px #2a3b70;
+    width: 7vh;
     height: 7vh;
     font-size: 20px;
     background-color: #2a3b70;
@@ -294,13 +374,13 @@ div#interactive_space {
     transition: transform 0.2s, margin 0.2s;
     transition: background-color 0.15s ease-in;
     color: white; }
-    @media only screen and (orientation: landscape) and (max-width: 1024px) {
+    @media only screen and (orientation: landscape) and (max-width: 1023px) {
       .dropdown > .dropdown_label {
-        width: 8vw;
+        width: 11vh;
         height: 11vh; } }
     @media all and (min-width: 1400px) {
       .dropdown > .dropdown_label {
-        width: 50px;
+        width: 40px;
         height: 40px; } }
     .dropdown > .dropdown_label > .dropdown_label_image {
       width: auto;

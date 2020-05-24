@@ -131,7 +131,7 @@ const fade_start = (time, on_finished = null) => {
 }
 
 const fade_end = (time, map) => {
-  $('#map_image').attr('src', `resource/${map}.png`)
+  $('#map_image').attr('src', `resource/image/${map}.png`)
   activeMapButton.removeClass('active_item')
   activeMapButton = $(`#map_list_item_${map}`)
   activeMapButton.addClass('active_item')
@@ -157,6 +157,19 @@ $(document).ready(() => {
   $('#open_filter').click((ev) => {
     toogle_modal()
   })
+  $('#attacker_toggle_item').click(() => {
+    $('#attacker_toggle_item').removeClass('toggle_off')
+    $('#attacker_toggle_item').addClass('toggle_on')
+    $('#defender_toggle_item').removeClass('toggle_on')
+    $('#defender_toggle_item').addClass('toggle_off')
+  })
+  $('#defender_toggle_item').click(() => {
+    $('#defender_toggle_item').removeClass('toggle_off')
+    $('#defender_toggle_item').addClass('toggle_on')
+    $('#attacker_toggle_item').removeClass('toggle_on')
+    $('#attacker_toggle_item').addClass('toggle_off')
+  })
+
   $('#filter_li_sage').click((ev) => {
     activeFilter.removeClass('active_item')
     activeFilter = $('#filter_li_sage')
