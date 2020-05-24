@@ -14,10 +14,13 @@ main#container {
   height: 100vh;
   display: grid;
   overflow: hidden;
-  grid-template: 8% 1fr 10px/1fr 100vw 1fr; }
-  @media only screen and (min-width: 1025px) {
+  grid-template: 8% 1fr 10px/1fr 98vw 1fr; }
+  @media only screen and (orientation: landscape) and (max-width: 1024px) {
     main#container {
-      grid-template: 6% 1fr 15px/1fr 50vw 1fr; } }
+      grid-template: 12% 1fr 10px/1fr 98vw 1fr; } }
+  @media all and (min-width: 1400px) {
+    main#container {
+      grid-template: 5% 1fr 15px/1fr 50vw 1fr; } }
 
 nav#settings_navigator {
   z-index: 2;
@@ -52,24 +55,17 @@ nav#settings_navigator {
         margin-left: 4px;
         margin-right: 4px;
         transform: scale(1.07, 1.07); }
-      @media only screen and (max-width: 1025px) and (max-aspect-ratio: 9 / 8) {
-        nav#settings_navigator > ul#heroes_list {
-          margin-right: 20px; } }
 
 div#interactive_space {
   grid-column: 2/3;
   grid-row: 2/3;
-  width: 100%;
-  height: 100%;
   margin: 1px;
   position: relative;
   overflow: scroll; }
-  @media only screen and (min-width: 1025px) {
+  @media all and (min-width: 1400px) {
     div#interactive_space {
       box-shadow: 3px 3px 10px 1px #1a2533;
-      overflow: hidden;
-      width: 100%;
-      height: 100%; } }
+      overflow: hidden; } }
   div#interactive_space img {
     width: auto;
     height: 100%;
@@ -83,6 +79,10 @@ div#interactive_space {
         width: 100%;
         height: 100%;
         object-fit: contain; } }
+    @media only screen and (orientation: landscape) and (max-width: 1024px) {
+      div#interactive_space img {
+        width: 100vw;
+        height: 100vw; } }
   div#interactive_space #map_svg {
     position: absolute;
     width: auto;
@@ -93,6 +93,10 @@ div#interactive_space {
         width: 100%;
         height: 100%;
         object-fit: contain; } }
+    @media only screen and (orientation: landscape) and (max-width: 1024px) {
+      div#interactive_space #map_svg {
+        width: 100vw;
+        height: 100vw; } }
     div#interactive_space #map_svg .standardCircle {
       fill: #806128;
       stroke: white;
@@ -125,7 +129,12 @@ div#interactive_space {
   border: solid 1px #314583;
   transition: transform 0.2s, margin 0.2s;
   transition: background-color 0.15s ease-in; }
-  @media only screen and (min-width: 1025px) {
+  @media only screen and (orientation: landscape) and (max-width: 1024px) {
+    .item {
+      width: 18vw;
+      height: 11vh;
+      font-size: 3.5vw; } }
+  @media all and (min-width: 1400px) {
     .item {
       box-shadow: 3px 3px 10px 1px #2a3b70;
       width: 90px;
@@ -133,7 +142,7 @@ div#interactive_space {
       min-width: 5vw;
       min-height: 4vh;
       font-size: 20px; } }
-  @media only screen and (min-width: 2000px) {
+  @media all and (min-width: 2000px) {
     .item {
       box-shadow: 3px 3px 10px 1px #2a3b70;
       width: 120px;
@@ -191,7 +200,7 @@ div#interactive_space {
       #overlay .card {
         width: 90vh;
         height: 90vh; } }
-    @media only screen and (min-width: 1025px) {
+    @media all and (min-width: 1400px) {
       #overlay .card {
         width: 720px;
         height: 720px; } }
@@ -214,7 +223,7 @@ div#interactive_space {
   display: flex;
   align-items: center;
   justify-content: center; }
-  @media only screen and (min-width: 1025px) {
+  @media all and (min-width: 1400px) {
     .close {
       width: 50px;
       height: 50px; } }
@@ -248,13 +257,17 @@ div#interactive_space {
     transition: transform 0.2s, margin 0.2s;
     transition: background-color 0.15s ease-in;
     color: white; }
-    @media only screen and (min-width: 1025px) {
+    @media only screen and (orientation: landscape) and (max-width: 1024px) {
+      .dropdown > .dropdown_label {
+        width: 8vw;
+        height: 11vh; } }
+    @media all and (min-width: 1400px) {
       .dropdown > .dropdown_label {
         width: 50px;
         height: 40px; } }
     .dropdown > .dropdown_label > .dropdown_label_image {
       width: auto;
-      height: 40%; }
+      height: 30%; }
   .dropdown:hover > .dropdown_content {
     display: block; }
   .dropdown:hover > .dropdown_label {

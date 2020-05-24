@@ -14,6 +14,11 @@ main#container {
   display: grid;
   overflow: hidden;
   grid-template: $grid-sizes-small;
+
+  @media only screen and (orientation: landscape) and (max-width: 1024px) {
+    grid-template: $grid-sizes-small-landscape;
+  }
+
   @include media('desktop') {
     grid-template: $grid-sizes-big;
   }
@@ -52,7 +57,6 @@ nav#settings_navigator {
 div#interactive_space {
   grid-column: 2/3;
   grid-row: 2/3;
-  @include size(100%, 100%);
 
   margin: 1px;
   position: relative;
@@ -61,7 +65,6 @@ div#interactive_space {
   @include media('desktop') {
     @include simple_box_shadow($secondary_theme);
     overflow: hidden;
-    @include size(100%, 100%);
   }
 
   img {
@@ -69,6 +72,9 @@ div#interactive_space {
     @media only screen and (min-aspect-ratio: 8/9) {
       @include size(100%, 100%);
       object-fit: contain;
+    }
+    @media only screen and (orientation: landscape) and (max-width: 1024px) {
+      @include size(100vw, 100vw);
     }
 
     /* @include media('tablet') {
@@ -83,6 +89,9 @@ div#interactive_space {
     @media only screen and (min-aspect-ratio: 8/9) {
       @include size(100%, 100%);
       object-fit: contain;
+    }
+    @media only screen and (orientation: landscape) and (max-width: 1024px) {
+      @include size(100vw, 100vw);
     }
     //transform: scale(0.5, 0.5);
 
@@ -238,6 +247,9 @@ div#interactive_space {
     @include simple_box_shadow($button_color);
 
     @include size(16vw, 7vh);
+    @media only screen and (orientation: landscape) and (max-width: 1024px) {
+      @include size(8vw, 11vh);
+    }
     @include media('desktop') {
       @include size(50px, 40px);
     }
@@ -250,7 +262,7 @@ div#interactive_space {
     transition: background-color 0.15s ease-in;
     color: white;
     > .dropdown_label_image {
-      @include size(auto, 40%);
+      @include size(auto, 30%);
     }
   }
 

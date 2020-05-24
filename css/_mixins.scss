@@ -5,12 +5,7 @@
     @content;
   }
   &#heroes_list {
-    @content;
-    $size: map-get($media_sizes, 'desktop');
-    @media only screen and (max-width: $size) and (max-aspect-ratio: 9/8) {
-      margin-right: 20px;
-    }
-    justify-content: flex-end;
+    @content justify-content: flex-end;
     flex-wrap: wrap;
   }
 }
@@ -26,7 +21,7 @@
 
 @mixin media($device_name) {
   $size: map-get($media_sizes, $device_name);
-  @media only screen and (min-width: $size) {
+  @media all and (min-width: $size) {
     @content;
   }
 }
@@ -35,6 +30,11 @@
   @include size(20vw, 7vh);
   font-size: 4vw;
   margin: 1px;
+
+  @media only screen and (orientation: landscape) and (max-width: 1024px) {
+    @include size(18vw, 11vh);
+    font-size: 3.5vw;
+  }
 
   @include media('desktop') {
     @include simple_box_shadow($color);
