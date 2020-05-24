@@ -14,7 +14,7 @@ main#container {
   height: 100vh;
   display: grid;
   overflow: hidden;
-  grid-template: 8% 1fr 10px/5px 1fr 5px; }
+  grid-template: 8% 1fr 10px/1fr 100vw 1fr; }
   @media only screen and (min-width: 1025px) {
     main#container {
       grid-template: 6% 1fr 15px/1fr 50vw 1fr; } }
@@ -52,6 +52,9 @@ nav#settings_navigator {
         margin-left: 4px;
         margin-right: 4px;
         transform: scale(1.07, 1.07); }
+      @media only screen and (max-width: 1025px) and (max-aspect-ratio: 9 / 8) {
+        nav#settings_navigator > ul#heroes_list {
+          margin-right: 20px; } }
 
 div#interactive_space {
   grid-column: 2/3;
@@ -70,8 +73,12 @@ div#interactive_space {
   div#interactive_space img {
     width: auto;
     height: 100%;
+    /* @include media('tablet') {
+      @include size(100%, 100%);
+      object-fit: contain;
+    } */
     background-color: #1a2533; }
-    @media only screen and (min-width: 1025px) {
+    @media only screen and (min-aspect-ratio: 8 / 9) {
       div#interactive_space img {
         width: 100%;
         height: 100%;
@@ -81,10 +88,11 @@ div#interactive_space {
     width: auto;
     height: 100%;
     z-index: 1; }
-    @media only screen and (min-width: 1025px) {
+    @media only screen and (min-aspect-ratio: 8 / 9) {
       div#interactive_space #map_svg {
         width: 100%;
-        height: 100%; } }
+        height: 100%;
+        object-fit: contain; } }
     div#interactive_space #map_svg .standardCircle {
       fill: #806128;
       stroke: white;

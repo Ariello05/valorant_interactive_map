@@ -6,6 +6,10 @@
   }
   &#heroes_list {
     @content;
+    $size: map-get($media_sizes, 'desktop');
+    @media only screen and (max-width: $size) and (max-aspect-ratio: 9/8) {
+      margin-right: 20px;
+    }
     justify-content: flex-end;
     flex-wrap: wrap;
   }

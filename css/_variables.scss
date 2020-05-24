@@ -8,11 +8,11 @@ $button_distinctive: #a34300;
 $white_text: #ddd;
 
 $grid-sizes-big: 6% 1fr 15px / 1fr 50vw 1fr;
-$grid-sizes-small: 8% 1fr 10px/ 5px 1fr 5px;
+$grid-sizes-small: 8% 1fr 10px/ 1fr 100vw 1fr;
 
 $media_sizes: (
   'desktop': 1025px,
   'desktop-huge': 2000px,
   //4k?
-    'tablet': 760px
+    'tablet': 676px
 );
