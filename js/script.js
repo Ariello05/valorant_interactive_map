@@ -1,23 +1,6 @@
 /* eslint-disable camelcase */
-import {
-  get_data_processor,
-  turn_off_overlay,
-  turn_on_overlay,
-  champion_names,
-  errors
-} from './data_loader.js'
-
-const map_names = {
-  BIND: 'bind',
-  SPLIT: 'split',
-  HAVEN: 'haven'
-}
-
-const map_fetches = {
-  BIND: 'https://api.jsonbin.io/b/5ea03eb55fa47104cea5096d/15',
-  SPLIT: '',
-  HAVEN: ''
-}
+import { get_data_processor, turn_off_overlay } from './data_loader.js'
+import { champion_names, errors, map_names, map_fetches } from './consts.js'
 
 let activeMapButton = $('#map_list_item_bind')
 let activeFilter = $('#filter_li_sage')
@@ -46,11 +29,6 @@ const clear_interactive_map = () => {
 const toogle_modal = () => {
   $('#pick_form').toggle(50)
   $('#modal').toggle(200)
-}
-
-const turn_off_modal = () => {
-  $('#pick_form').fadeOut(50)
-  $('#modal').fadeOut(200)
 }
 
 const { process_data, refresh_with_data } = get_data_processor()
@@ -146,16 +124,16 @@ $(document).ready(() => {
     }
     console.log(ev)
   })
-  $('#map_list_item_split').click((ev) => {
+  $('#map_list_item_split').click(() => {
     update_map('split')
   })
-  $('#map_list_item_bind').click((ev) => {
+  $('#map_list_item_bind').click(() => {
     update_map('bind')
   })
-  $('#map_list_item_haven').click((ev) => {
+  $('#map_list_item_haven').click(() => {
     update_map('haven')
   })
-  $('#open_filter').click((ev) => {
+  $('#open_filter').click(() => {
     toogle_modal()
   })
   $('#attacker_toggle_item').click(() => {
@@ -171,7 +149,7 @@ $(document).ready(() => {
     $('#attacker_toggle_item').addClass('toggle_off')
   })
 
-  $('#filter_li_sage').click((ev) => {
+  $('#filter_li_sage').click(() => {
     activeFilter.removeClass('active_item')
     activeFilter = $('#filter_li_sage')
     activeFilter.addClass('active_item')
@@ -179,7 +157,7 @@ $(document).ready(() => {
     clear_interactive_map()
     refresh_with_data(filterBy)
   })
-  $('#filter_li_sova').click((ev) => {
+  $('#filter_li_sova').click(() => {
     activeFilter.removeClass('active_item')
     activeFilter = $('#filter_li_sova')
     activeFilter.addClass('active_item')
@@ -187,7 +165,7 @@ $(document).ready(() => {
     clear_interactive_map()
     refresh_with_data(filterBy)
   })
-  $('#filter_li_brimstone').click((ev) => {
+  $('#filter_li_brimstone').click(() => {
     activeFilter.removeClass('active_item')
     activeFilter = $('#filter_li_brimstone')
     activeFilter.addClass('active_item')

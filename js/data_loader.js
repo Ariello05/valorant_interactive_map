@@ -1,15 +1,6 @@
+import { champion_names, errors } from './consts.js'
+
 let imagesArray = []
-
-const errors = {
-  argumentError: 'Invalid argument in a function call',
-  notImplementedError: "This functionality wasnt't implemented"
-}
-
-const champion_names = {
-  SAGE: 'sage',
-  SOVA: 'sova',
-  BRIMSTONE: 'brimstone'
-}
 
 const select_image = (id, index) => {
   const imagesSize = imagesArray[id].length
@@ -23,7 +14,7 @@ const select_image = (id, index) => {
     $('#arrow_right')
       .css('visibility', 'visible')
       .off('click')
-      .click((ev) => {
+      .click(() => {
         select_image(id, index + 1)
       })
     $('#arrow_left').css('visibility', 'hidden')
@@ -31,7 +22,7 @@ const select_image = (id, index) => {
     $('#arrow_left')
       .css('visibility', 'visible')
       .off('click')
-      .click((ev) => {
+      .click(() => {
         select_image(id, index - 1)
       })
     $('#arrow_right').css('visibility', 'hidden')
@@ -39,13 +30,13 @@ const select_image = (id, index) => {
     $('#arrow_right')
       .css('visibility', 'visible')
       .off('click')
-      .click((ev) => {
+      .click(() => {
         select_image(id, index + 1)
       })
     $('#arrow_left')
       .css('visibility', 'visible')
       .off('click')
-      .click((ev) => {
+      .click(() => {
         select_image(id, index - 1)
       })
   }
@@ -58,13 +49,14 @@ const turn_on_overlay = (images_id) => {
       $('#arrow_right')
         .css('visibility', 'visible')
         .off('click')
-        .click((ev) => {
+        .click(() => {
           select_image(images_id, 1)
         })
     } else {
       $('#arrow_right').css('visibility', 'hidden')
     }
   }
+  $('#overlay_container').children('.arrow').css('visibility', 'hidden')
 
   $('#overlay').fadeIn(200)
   $('#image_container')
@@ -152,11 +144,11 @@ const get_data_processor = () => {
         break
 
       case champion_names.SOVA:
-        groups = data.sova
+        //groups = data.sova TODO
         break
 
       case champion_names.BRIMSTONE:
-        groups = data.brimstone
+        //groups = data.brimstone TODO
         break
 
       default:
@@ -170,10 +162,4 @@ const get_data_processor = () => {
   }
   return { process_data, refresh_with_data }
 }
-export {
-  get_data_processor,
-  turn_off_overlay,
-  turn_on_overlay,
-  champion_names,
-  errors
-}
+export { get_data_processor, turn_off_overlay, turn_on_overlay }

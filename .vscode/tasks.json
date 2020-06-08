@@ -9,9 +9,13 @@
       "type": "shell",
       "command": "node-sass ./css/styles.scss ./css/styles.css",
       "group": "build",
-      "problemMatcher": [
-        "$eslint-compact"
-      ]
+      "problemMatcher": ["$eslint-compact"]
+    },
+    {
+      "label": "Start Local Server",
+      "type": "shell",
+      "command": "python3 -m http.server",
+      "group": "test"
     }
   ]
 }
