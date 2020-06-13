@@ -4,7 +4,7 @@
   "description": "Valorant tricks&tips on different maps",
   "main": "index.js",
   "scripts": {
-    "test": "jest",
+    "test": "jest ./test",
     "lint": "eslint ."
   },
   "keywords": [

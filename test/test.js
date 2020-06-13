@@ -9,7 +9,6 @@ Array.prototype.duplicate = function () {
 
 test('Array, duplicate eraser', () => {
   const tab = [2, 4, 5, 3, 4, 5, 1, 2, 1, 6]
-
   expect(eraser(tab)).toEqual([2, 4, 5, 3, 1, 6])
 })
 
