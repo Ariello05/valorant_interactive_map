@@ -1,6 +1,7 @@
 /* eslint-disable camelcase */
-import { get_data_processor, turn_off_overlay } from './data_loader.js'
+import { get_data_processor } from './data_loader.js'
 import { champion_names, errors, map_names, map_fetches } from './consts.js'
+import { overlay_transition_controller, turn_off_overlay } from './overlay.js'
 
 let activeMapButton = $('#map_list_item_bind')
 let activeFilter = $('#filter_li_sage')
@@ -67,6 +68,7 @@ const get_fetcher = () => {
   // let heaven_data = {}
 
   const data_fetch = (map_name) => {
+    console.log(overlay_transition_controller)
     switch (map_name) {
       case map_names.BIND:
         if ($.isEmptyObject(bind_data)) {
@@ -117,6 +119,12 @@ const fade_end = (time, map) => {
 }
 
 $(document).ready(() => {
+  overlay_transition_controller.set_image_holder(
+    $('#overlay_container').children('#image_container').children('.card')
+  )
+  overlay_transition_controller.set_left_arrow_holder($('#arrow_left'))
+  overlay_transition_controller.set_right_arrow_holder($('#arrow_right'))
+
   update_map('bind')
   $('#overlay').click((ev) => {
     if (ev.target.nodeName !== 'IMG' || ev.target.id === 'close_button') {

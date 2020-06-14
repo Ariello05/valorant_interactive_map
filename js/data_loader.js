@@ -1,130 +1,64 @@
 import { champion_names, errors } from './consts.js'
+import { overlay_transition_controller, turn_on_overlay } from './overlay.js'
 
-let imagesArray = []
-
-const select_image = (id, index) => {
-  const imagesSize = imagesArray[id].length
-  $('#overlay_container').children('#image_container').children('.card').empty()
-  $('#overlay_container')
-    .children('#image_container')
-    .children('.card')
-    .append(`<img src= resource/image/${imagesArray[id][index]} />`)
-
-  if (index === 0) {
-    $('#arrow_right')
-      .css('visibility', 'visible')
-      .off('click')
-      .click(() => {
-        select_image(id, index + 1)
-      })
-    $('#arrow_left').css('visibility', 'hidden')
-  } else if (index === imagesSize - 1) {
-    $('#arrow_left')
-      .css('visibility', 'visible')
-      .off('click')
-      .click(() => {
-        select_image(id, index - 1)
-      })
-    $('#arrow_right').css('visibility', 'hidden')
+const update_images = (srcs) => {
+  if (srcs.length === 1) {
+    overlay_transition_controller.overlay_images.push([srcs])
   } else {
-    $('#arrow_right')
-      .css('visibility', 'visible')
-      .off('click')
-      .click(() => {
-        select_image(id, index + 1)
-      })
-    $('#arrow_left')
-      .css('visibility', 'visible')
-      .off('click')
-      .click(() => {
-        select_image(id, index - 1)
-      })
+    overlay_transition_controller.overlay_images.push([...srcs])
   }
 }
 
-const turn_on_overlay = (images_id) => {
-  const finish = () => {
-    $('#arrow_left').css('visibility', 'hidden')
-    if (imagesArray[images_id].length > 1) {
-      $('#arrow_right')
-        .css('visibility', 'visible')
-        .off('click')
-        .click(() => {
-          select_image(images_id, 1)
-        })
-    } else {
-      $('#arrow_right').css('visibility', 'hidden')
-    }
-  }
-  $('#overlay_container').children('.arrow').css('visibility', 'hidden')
+const setup_group = (index) => {
+  return d3
+    .select('#map_svg')
+    .append('g')
+    .on('click', () => {
+      turn_on_overlay(index)
+    })
+    .attr('class', 'clickable')
+}
 
-  $('#overlay').fadeIn(200)
-  $('#image_container')
-    .children('.card')
-    .append(
-      $('<img>', {
-        id: 'overlay_image',
-        src: `resource/image/${imagesArray[images_id][0]}`,
-        onload: finish
-      })
+const sage_item_adder = (new_group, item) => {
+  if (item.type === 'sageBarrier') {
+    new_group.attr(
+      'transform',
+      `rotate(${item.rotate} ${item.x + 25} ${item.y + 23})`
     )
+
+    new_group
+      .append('image')
+      .attr('x', `${item.x}`)
+      .attr('y', `${item.y}`)
+      .attr('width', 50)
+      .attr('height', 56)
+      .attr('xlink:href', 'resource/image/sage_barrier.png')
+
+    new_group
+      .append('rect')
+      .attr('x', `${item.x - 4}`)
+      .attr('y', `${item.y + 5}`)
+      .attr('rx', 5)
+      .attr('ry', 5)
+      .attr('width', 58)
+      .attr('height', 45)
+      .attr('class', `${item.class}`)
+  }
 }
 
-const turn_off_overlay = (delay = 200) => {
-  $('#overlay').fadeOut(delay, () => {
-    $('#image_container').children('.card').empty()
-  })
-}
-
-const load_sage = (groups) => {
+const load = (groups, loader) => {
   let index = -1
-  imagesArray = []
 
   groups.forEach((group) => {
     index += 1
     const srcs = group.source
     const items = group.items
 
-    if (srcs.length === 1) {
-      imagesArray.push([srcs])
-    } else {
-      imagesArray.push([...srcs])
-    }
-
-    // eslint-disable-next-line no-undef
-    const new_group = d3
-      .select('#map_svg')
-      .append('g')
-      .on('click', () => {
-        turn_on_overlay(index)
-      })
-      .attr('class', 'clickable')
+    update_images(srcs)
+    const new_group = setup_group(index)
 
     items.forEach((item) => {
-      if (item.type === 'sageBarrier') {
-        new_group.attr(
-          'transform',
-          `rotate(${item.rotate} ${item.x + 25} ${item.y + 23})`
-        )
-
-        new_group
-          .append('image')
-          .attr('x', `${item.x}`)
-          .attr('y', `${item.y}`)
-          .attr('width', 50)
-          .attr('height', 56)
-          .attr('xlink:href', 'resource/image/sage_barrier.png')
-
-        new_group
-          .append('rect')
-          .attr('x', `${item.x - 4}`)
-          .attr('y', `${item.y + 5}`)
-          .attr('rx', 5)
-          .attr('ry', 5)
-          .attr('width', 58)
-          .attr('height', 45)
-          .attr('class', `${item.class}`)
-      }
+      loader(new_group, item)
     })
   })
 }
@@ -135,12 +69,13 @@ const get_data_processor = () => {
   const process_data = (data, filterBy) => {
     last_used = data
     if (last_used == null) {
+      // TODO: Can delete?
       return
     }
-
+    overlay_transition_controller.overlay_images = []
     switch (filterBy) {
       case champion_names.SAGE:
-        load_sage(data.sage)
+        load(data.sage, sage_item_adder)
         break
 
       case champion_names.SOVA:
@@ -162,4 +97,4 @@ const get_data_processor = () => {
   }
   return { process_data, refresh_with_data }
 }
-export { get_data_processor, turn_off_overlay, turn_on_overlay }
+export { get_data_processor }
