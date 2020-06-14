@@ -12,9 +12,15 @@
       "problemMatcher": ["$eslint-compact"]
     },
     {
-      "label": "Start Local Server",
+      "label": "Start py Local Server",
       "type": "shell",
       "command": "python3 -m http.server",
+      "group": "test"
+    },
+    {
+      "label": "Start npm Local Server",
+      "type": "shell",
+      "command": "http.server",
       "group": "test"
     }
   ]
