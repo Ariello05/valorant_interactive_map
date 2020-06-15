@@ -123,7 +123,6 @@ $(document).ready(() => {
   const group = d3.select('#top_map_group')
   d3.select('#map_svg').call(
     d3.zoom().on('zoom', function () {
-      console.log(d3.event.transform)
       group.attr('transform', d3.event.transform)
     })
   )
