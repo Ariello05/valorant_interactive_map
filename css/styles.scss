@@ -147,22 +147,24 @@ div#interactive_space {
     }
   }
 
-  img {
-    position: absolute;
-    top: 0;
-    left: 0;
-    @include size(auto, 100%);
-    @media only screen and (min-aspect-ratio: 8/9) {
-      @include size(100%, 100%);
-      object-fit: contain;
-    }
-    @include media_landscape {
-      @include size(100vw, 100vw);
-    }
+  svg#map_svg {
+    /*
+    > image {
+      position: absolute;
+      top: 0;
+      left: 0;
+      @include size(auto, 100%);
+      @media only screen and (min-aspect-ratio: 8/9) {
+        @include size(100%, 100%);
+        object-fit: contain;
+      }
+      @include media_landscape {
+        @include size(100vw, 100vw);
+      }
 
-    background-color: $secondary_theme;
-  }
-  #map_svg {
+      background-color: $secondary_theme;
+    }*/
+    overflow: scroll;
     position: absolute;
     top: 0;
     left: 0;

@@ -12,8 +12,8 @@
       rel="stylesheet"
     />
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://d3js.org/d3.v5.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <link rel="stylesheet" type="text/css" href="css/styles.css?v=1.0" />
   </head>
 
@@ -52,10 +52,14 @@
         </div>
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          id="map_svg"
           viewbox="0 0 1024 1024"
-        ></svg>
-        <img src="resource/image/bind.png" id="map_image" />
+          id="map_svg"
+        >
+          <g id="top_map_group">
+            <image xlink:href="resource/image/bind.png" id="map_image" />
+            <g id="map_content"></g>
+          </g>
+        </svg>
       </div>
       <article id="overlay">
         <div id="overlay_container">

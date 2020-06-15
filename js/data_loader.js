@@ -11,7 +11,7 @@ const update_images = (srcs) => {
 
 const setup_group = (index) => {
   return d3
-    .select('#map_svg')
+    .select('#map_content')
     .append('g')
     .on('click', () => {
       turn_on_overlay(index)

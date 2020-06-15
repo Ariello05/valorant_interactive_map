@@ -25,7 +25,7 @@ const get_url_for_map = (map_name) => {
 }
 
 const clear_interactive_map = () => {
-  $('#map_svg').empty()
+  $('#map_content').empty()
 }
 
 const { process_data, refresh_with_data } = get_data_processor()
@@ -64,7 +64,6 @@ const get_fetcher = () => {
   // let heaven_data = {}
 
   const data_fetch = (map_name) => {
-    console.log(overlay_transition_controller)
     switch (map_name) {
       case map_names.BIND:
         if ($.isEmptyObject(bind_data)) {
@@ -107,7 +106,7 @@ const fade_start = (time, on_finished = null) => {
 }
 
 const fade_end = (time, map) => {
-  $('#map_image').attr('src', `resource/image/${map}.png`)
+  $('#map_image').attr('xlink:href', `resource/image/${map}.png`)
   activeMapButton.removeClass('active_item')
   activeMapButton = $(`#map_list_item_${map}`)
   activeMapButton.addClass('active_item')
@@ -121,12 +120,19 @@ $(document).ready(() => {
   overlay_transition_controller.set_left_arrow_holder($('#arrow_left'))
   overlay_transition_controller.set_right_arrow_holder($('#arrow_right'))
 
+  const group = d3.select('#top_map_group')
+  d3.select('#map_svg').call(
+    d3.zoom().on('zoom', function () {
+      console.log(d3.event.transform)
+      group.attr('transform', d3.event.transform)
+    })
+  )
+
   update_map('bind')
   $('#overlay').click((ev) => {
     if (ev.target.nodeName !== 'IMG' || ev.target.id === 'close_button') {
       turn_off_overlay()
     }
-    console.log(ev)
   })
   $('#map_list_item_split').click(() => {
     update_map('split')
