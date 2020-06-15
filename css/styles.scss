@@ -82,10 +82,8 @@ div#interactive_space {
   margin: 1px;
 
   position: relative;
-  overflow: scroll;
   @include media('desktop') {
     @include simple_box_shadow($secondary_theme);
-    overflow: hidden;
   }
 
   > .side_toggle {
@@ -148,22 +146,6 @@ div#interactive_space {
   }
 
   svg#map_svg {
-    /*
-    > image {
-      position: absolute;
-      top: 0;
-      left: 0;
-      @include size(auto, 100%);
-      @media only screen and (min-aspect-ratio: 8/9) {
-        @include size(100%, 100%);
-        object-fit: contain;
-      }
-      @include media_landscape {
-        @include size(100vw, 100vw);
-      }
-
-      background-color: $secondary_theme;
-    }*/
     overflow: scroll;
     position: absolute;
     top: 0;
@@ -229,15 +211,15 @@ div#interactive_space {
 }
 
 #overlay {
-  position: fixed; /* Sit on top of the page content */
-  display: none; /* Hidden by default */
+  position: fixed;
+  display: none;
   @include size(100%, 100%);
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.5); /* Black background with opacity */
-  z-index: 2; /* Specify a stack order in case you're using a different order for other elements */
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 2;
   #overlay_container {
     @include size(100%, 100%);
     display: flex;
@@ -279,7 +261,6 @@ div#interactive_space {
     }
 
     #arrow_right {
-      // transform: rotate(-0);
       order: 2;
       @include media('tablet') {
         order: 0;
@@ -292,7 +273,7 @@ div#interactive_space {
     }
   }
   .card {
-    cursor: pointer; /* Add a pointer on hover */
+    cursor: pointer;
     @media all and (min-aspect-ratio: 1/1) {
       @include size(auto, 90vh);
     }
@@ -348,13 +329,11 @@ div#interactive_space {
   display: block;
 
   > .dropdown_content {
-    // background-color: $button_color;
     opacity: 0.9;
     right: 0;
     display: none;
     position: absolute;
     padding: 0;
-    // @include simple_box_shadow($button_color);
     > .item:hover {
       &.active_item {
         $darker: darken(lighten($button_color, 20%), 5%);
@@ -372,24 +351,10 @@ div#interactive_space {
   }
 
   > .dropdown_label {
-    // @extend %flex-center;
     font-family: 'Teko', sans-serif;
     letter-spacing: 0.05rem;
     @include simple_box_shadow($button_color);
     @include block_size($button_color);
-    /*
-    @include size(13vh, 7vh);
-    @include media_landscape {
-      @include size(20vh, 11vh);
-    }
-    @include media('desktop') {
-      @include size(60px, 35px);
-    }
-
-    @media all and (max-aspect-ratio: 9/17) {
-      //iphone X etc.
-      @include size(16vw, 5vh);
-    }*/
 
     font-size: 1.2rem;
     display: flex;
@@ -430,9 +395,6 @@ div#interactive_space {
     }
   }
 
-  &:hover > .dropdown_content {
-    //display: block;
-  }
   &:hover > .dropdown_label {
     background-color: darken($button_color, 5%);
     transform: scale(1.02, 1.02);
