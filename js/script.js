@@ -2,6 +2,7 @@
 import { get_data_processor } from './data_loader.js'
 import { champion_names, errors, map_names, map_fetches } from './consts.js'
 import { overlay_transition_controller, turn_off_overlay } from './overlay.js'
+import { open_filter, close_filter } from './filter_button.js'
 
 let activeMapButton = $('#map_list_item_bind')
 let activeFilter = $('#filter_li_sage')
@@ -25,14 +26,6 @@ const get_url_for_map = (map_name) => {
 
 const clear_interactive_map = () => {
   $('#map_svg').empty()
-}
-
-const open_filter = () => {
-  $('#open_filter').children('.dropdown_content').slideDown(150)
-}
-
-const close_filter = () => {
-  $('#open_filter').children('.dropdown_content').slideUp(150)
 }
 
 const { process_data, refresh_with_data } = get_data_processor()
