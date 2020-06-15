@@ -7,5 +7,4 @@ https://ariello05.github.io/
 - Add new map
 - *Create simple database to ease content managment (currently working on pure JSONs)
 - Add content to the maps
-- Better button for filtring by champions
 - Make Defender/Attacker button workable
