@@ -97,4 +97,6 @@ const get_data_processor = () => {
   }
   return { process_data, refresh_with_data }
 }
-export { get_data_processor }
+const { process_data, refresh_with_data } = get_data_processor()
+
+export { process_data, refresh_with_data }

@@ -1,117 +1,13 @@
 /* eslint-disable camelcase */
-import { get_data_processor } from './data_loader.js'
-import { champion_names, errors, map_names, map_fetches } from './consts.js'
+import { refresh_with_data } from './data_loader.js'
+import { champion_names } from './consts.js'
 import { overlay_transition_controller, turn_off_overlay } from './overlay.js'
 import { open_filter, close_filter } from './filter_button.js'
+import { update_map } from './data_fetch.js'
+import { clear_interactive_map } from './interactive_map.js'
 
-let activeMapButton = $('#map_list_item_bind')
 let activeFilter = $('#filter_li_sage')
 let filterBy = champion_names.SAGE
-
-const get_url_for_map = (map_name) => {
-  switch (map_name) {
-    case map_names.BIND:
-      return map_fetches.BIND
-
-    case map_names.SPLIT:
-      return map_fetches.SPLIT
-
-    case map_names.HAVEN:
-      return map_fetches.HAVEN
-
-    default:
-      throw new Error(errors.notImplementedError)
-  }
-}
-
-const clear_interactive_map = () => {
-  $('#map_content').empty()
-}
-
-const { process_data, refresh_with_data } = get_data_processor()
-
-const put_render_loading_title = () => {
-  // $('#interactive_space').append('<span>Loading...</span>')
-}
-
-const clear_render_loading_title = () => {
-  // $('#interactive_space').empty('span')
-}
-
-const handle_data_fetch = (map_name) => {
-  fade_start(120, put_render_loading_title)
-  // IDC what you do with this key anyway...
-  return fetch(get_url_for_map(map_name), {
-    headers: {
-      'secret-key':
-        '$2b$10$aXNzpfHDCiVx1j0lTjE1dOqb36FnbSk5HDs2/zh26C/o0Xuolp8La'
-    }
-  })
-    .then((response) => response.json())
-    .then((result) => {
-      process_data(result, filterBy)
-      fade_end(120, map_names.BIND, clear_render_loading_title)
-      return result
-    })
-}
-
-/**
- * Memoized fetcher
- */
-const get_fetcher = () => {
-  let bind_data = {}
-  // let split_data = {}
-  // let heaven_data = {}
-
-  const data_fetch = (map_name) => {
-    switch (map_name) {
-      case map_names.BIND:
-        if ($.isEmptyObject(bind_data)) {
-          handle_data_fetch(map_name, bind_data).then((result) => {
-            bind_data = result
-          })
-        } else {
-          fade_start(120, () => {
-            process_data(bind_data, filterBy)
-            fade_end(120, map_names.BIND)
-          })
-        }
-
-        break
-      case map_names.SPLIT:
-        fade_start(120, () => {
-          process_data(null, filterBy)
-          fade_end(120, map_names.SPLIT)
-        })
-        break
-      case map_names.HAVEN:
-        fade_start(120, () => {
-          process_data(null, filterBy)
-          fade_end(120, map_names.HAVEN)
-        })
-        break
-      default:
-        throw new Error(errors.argumentError)
-    }
-  }
-
-  return data_fetch
-}
-
-const update_map = get_fetcher()
-
-const fade_start = (time, on_finished = null) => {
-  clear_interactive_map()
-  $('#interactive_space').fadeOut(time, on_finished)
-}
-
-const fade_end = (time, map) => {
-  $('#map_image').attr('xlink:href', `resource/image/${map}.png`)
-  activeMapButton.removeClass('active_item')
-  activeMapButton = $(`#map_list_item_${map}`)
-  activeMapButton.addClass('active_item')
-  $('#interactive_space').fadeIn(time)
-}
 
 $(document).ready(() => {
   overlay_transition_controller.set_image_holder(
@@ -127,20 +23,20 @@ $(document).ready(() => {
     })
   )
 
-  update_map('bind')
+  update_map('bind', filterBy)
   $('#overlay').click((ev) => {
     if (ev.target.nodeName !== 'IMG' || ev.target.id === 'close_button') {
       turn_off_overlay()
     }
   })
   $('#map_list_item_split').click(() => {
-    update_map('split')
+    update_map('split', filterBy)
   })
   $('#map_list_item_bind').click(() => {
-    update_map('bind')
+    update_map('bind', filterBy)
   })
   $('#map_list_item_haven').click(() => {
-    update_map('haven')
+    update_map('haven', filterBy)
   })
   $('#open_filter').hover(open_filter, close_filter)
   $('#attacker_toggle_item').click(() => {
