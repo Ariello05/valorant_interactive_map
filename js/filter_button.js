@@ -1,17 +1,9 @@
-var block = false
-
-const is_blocked = () => {
-  // why? needed to fix bug, where user hovers on currently slidingUp object, making it move into slide Up/Down cycle
-  if (block === true) {
-    return true
-  } else {
-    block = true
-    return false
-  }
-}
+let block = false
 
 const open_filter = () => {
-  if (is_blocked()) return
+  if (block) {
+    return
+  }
 
   $('#open_filter')
     .children('.dropdown_content')
@@ -21,8 +13,12 @@ const open_filter = () => {
 }
 
 const close_filter = () => {
-  if (is_blocked()) return
+  if (block) {
+    // why? needed to fix bug, where user hovers on currently slidingUp object, making it move into slide Up/Down cycle
+    return
+  }
 
+  block = true
   $('#open_filter')
     .children('.dropdown_content')
     .slideUp(150, () => {
