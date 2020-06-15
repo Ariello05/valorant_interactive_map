@@ -27,9 +27,12 @@ const clear_interactive_map = () => {
   $('#map_svg').empty()
 }
 
-const toogle_modal = () => {
-  $('#pick_form').toggle(50)
-  $('#modal').toggle(200)
+const open_filter = () => {
+  $('#open_filter').children('.dropdown_content').slideDown(150)
+}
+
+const close_filter = () => {
+  $('#open_filter').children('.dropdown_content').slideUp(150)
 }
 
 const { process_data, refresh_with_data } = get_data_processor()
@@ -141,9 +144,7 @@ $(document).ready(() => {
   $('#map_list_item_haven').click(() => {
     update_map('haven')
   })
-  $('#open_filter').click(() => {
-    toogle_modal()
-  })
+  $('#open_filter').hover(open_filter, close_filter)
   $('#attacker_toggle_item').click(() => {
     $('#attacker_toggle_item').removeClass('toggle_off')
     $('#attacker_toggle_item').addClass('toggle_on')
