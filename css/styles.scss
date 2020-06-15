@@ -8,6 +8,7 @@ body {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  font-size: 16px;
 }
 
 main#container {
@@ -15,19 +16,16 @@ main#container {
   display: grid;
   overflow: hidden;
   grid-template: $grid-sizes-small;
-  font-size: 100%;
 
   @include media_landscape {
     grid-template: $grid-sizes-small-landscape;
-    font-size: 100%;
-  }
-  @include media('tablet') {
-    font-size: 140%;
   }
 
   @include media('desktop') {
     grid-template: $grid-sizes-big;
-    font-size: 100%;
+  }
+  @media all and (max-aspect-ratio: 9/17) {
+    grid-template: $grid-sizes-small-tall;
   }
 }
 
@@ -51,7 +49,19 @@ nav#settings_navigator {
     align-self: flex-end;
     @include settings_list() {
       width: 50%;
+      > .item {
+        border-radius: 4px 4px 0px 0px;
+      }
       > .item:hover {
+        &.active_item {
+          $darker: darken(lighten($button_color, 20%), 5%);
+          background-color: $darker;
+          background-image: linear-gradient(
+            180deg,
+            $darker,
+            darken($darker, 5%)
+          );
+        }
         $darker: darken($button_color, 5%);
         border-color: $darker;
         background-color: $darker;
@@ -101,29 +111,29 @@ div#interactive_space {
       border-radius: 2px;
       @extend %flex-center;
       @include size(12vh, 6vh);
-      font-size: 1rem;
+      font-size: 100%;
       &.toggle_off {
-        font-size: 0.8rem;
+        font-size: 80%;
       }
       letter-spacing: 2px;
       @include media('tablet') {
-        font-size: 2rem;
+        font-size: 200%;
         &.toggle_off {
-          font-size: 1.8rem;
+          font-size: 180%;
         }
         @include size(14vh, 7vh);
       }
       @include media_landscape {
         @include size(22vh, 11vh);
-        font-size: 1rem;
+        font-size: 120%;
         &.toggle_off {
-          font-size: 0.8rem;
+          font-size: 90%;
         }
       }
       @include media('desktop') {
-        font-size: 1.2rem;
+        font-size: 120%;
         &.toggle_off {
-          font-size: 1rem;
+          font-size: 100%;
         }
         @include size(80px, 40px);
       }
@@ -200,6 +210,7 @@ div#interactive_space {
     $button_color,
     darken($button_color, 5%)
   );
+  font-family: 'Teko', sans-serif;
 
   @extend %flex-center;
   @include block_size($button_color);
@@ -335,14 +346,19 @@ div#interactive_space {
   display: block;
 
   > .dropdown_content {
-    background-color: $button_color;
+    // background-color: $button_color;
     opacity: 0.9;
     right: 0;
     display: none;
     position: absolute;
     padding: 0;
-    @include simple_box_shadow($button_color);
+    // @include simple_box_shadow($button_color);
     > .item:hover {
+      &.active_item {
+        $darker: darken(lighten($button_color, 20%), 5%);
+        background-color: $darker;
+        background-image: linear-gradient(180deg, $darker, darken($darker, 5%));
+      }
       $darker: darken($button_color, 5%);
       border-color: $darker;
       background-color: $darker;
@@ -355,17 +371,25 @@ div#interactive_space {
 
   > .dropdown_label {
     // @extend %flex-center;
+    font-family: 'Teko', sans-serif;
+    letter-spacing: 0.05rem;
     @include simple_box_shadow($button_color);
-
-    @include size(14vh, 7vh);
+    @include block_size($button_color);
+    /*
+    @include size(13vh, 7vh);
     @include media_landscape {
-      @include size(22vh, 11vh);
+      @include size(20vh, 11vh);
     }
     @include media('desktop') {
-      @include size(80px, 40px);
+      @include size(60px, 35px);
     }
 
-    font-size: 20px;
+    @media all and (max-aspect-ratio: 9/17) {
+      //iphone X etc.
+      @include size(16vw, 5vh);
+    }*/
+
+    font-size: 1.2rem;
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
@@ -391,8 +415,16 @@ div#interactive_space {
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 0.8rem;
-      line-height: 0.9rem;
+      font-size: 1rem;
+      line-height: 1rem;
+      @media all and (min-width: 768px) and (min-height: 765px) {
+        font-size: 80%;
+        line-height: 1.6rem;
+      }
+      @include media('desktop') {
+        font-size: 70%;
+        line-height: 0.9rem;
+      }
     }
   }
 
